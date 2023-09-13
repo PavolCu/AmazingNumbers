@@ -3,13 +3,15 @@ import org.hyperskill.hstest.stage.StageTest;
 import org.hyperskill.hstest.testcase.CheckResult;
 import util.*;
 
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.LongStream;
+import java.util.stream.Stream;
+
+import static java.util.stream.IntStream.range;
 
 public final class NumbersTest extends StageTest {
     private static final Random random = new Random();
@@ -17,29 +19,54 @@ public final class NumbersTest extends StageTest {
     private static final int NEGATIVE_NUMBERS_TESTS = 5;
     private static final int FIRST_NUMBERS = 15;
     private static final int RANDOM_TESTS = 10;
+    private static final int MAX_PROPERTIES = 2;
     private static final int MAX_COUNT = 20;
     private static final int MIN_START = 2;
 
     private static final Checker WELCOME = new TextChecker("Welcome to Amazing Numbers!");
 
+    private static final String EXPLAIN = "The program should explain this in the help.";
     private static final Function<UserProgram, UserProgram> HELP =
             new TextChecker("Supported requests")
-                    .andThen(new TextChecker("a natural number"))
-                    .andThen(new TextChecker("two natural numbers"))
-                    .andThen(new TextChecker("property to search for"))
-                    .andThen(new TextChecker("enter 0 to exit"));
+                    .andThen(new RegexChecker(
+                            "(one|a) natural number",
+                            "In this stage, a user can enter one number to print a card. " + EXPLAIN))
+                    .andThen(new TextChecker(
+                            "two natural numbers",
+                            "In this stage, a user can enter two numbers to print a list. " + EXPLAIN))
+                    .andThen(new TextChecker(
+                            "properties to search for",
+                            "In this stage, a user can enter two numbers and properties to search for. "
+                                    + EXPLAIN))
+                    .andThen(new TextChecker(
+                            "enter 0 to exit",
+                            "Display the instructions on how to exit"));
 
-    private static final Checker ASK_REQUEST = new TextChecker("enter a request");
-    private static final Checker ERROR_FIRST = new TextChecker("first parameter should be a natural number or zero");
-    private static final Checker ERROR_SECOND = new TextChecker("second parameter should be a natural number");
-
+    private static final Checker ASK_REQUEST = new RegexChecker(
+            "enter a request",
+            "The program should ask a user to enter a request."
+    );
+    private static final Checker ERROR_FIRST = new RegexChecker(
+            "The first (parameter|number) should be a natural number or zero",
+            "The first parameter \"{0}\" is wrong. The program should print an error message."
+    );
+    private static final Checker ERROR_SECOND = new RegexChecker(
+            "The second parameter should be a natural number",
+            "The second parameter \"{0}\" is wrong. The program should print an error message."
+    );
     private static final Checker ERROR_PROPERTY = new RegexChecker(
             "The property .+ is wrong",
             "The request: \"{0}\" has one wrong property. "
                     + "Expected message: \"The property ... is wrong\"."
     );
-    private static final Checker HELP_PROPERTIES = new TextChecker("Available properties");
-
+    private static final Checker ERROR_PROPERTIES = new RegexChecker(
+            "The properties .+ are wrong",
+            "The request: \"{0}\" has two or more incorrect properties. "
+                    + "Expected that error message contains: \"The properties ... are wrong\"."
+    );
+    private static final Checker HELP_PROPERTIES = new TextChecker(
+            "Available properties"
+    );
     private static final Checker LIST_PROPERTIES = new Checker(
             program -> Arrays.stream(NumberProperty.values())
                     .map(Enum::name)
@@ -53,6 +80,11 @@ public final class NumbersTest extends StageTest {
             "properties of \\d",
             "The first line of number''s properties should contain \"Properties of {0}\"."
     );
+    private static final Checker MUTUALLY_EXCLUSIVE = new TextChecker(
+            "The request contains mutually exclusive properties",
+            "The request contains mutually exclusive properties. "
+                    + "The program should cancel the request and warn the user."
+    );
     private static final Checker RUNNING = new Checker(Predicate.not(UserProgram::isFinished),
             "The program should continue to work till the user enter \"0\"."
     );
@@ -64,7 +96,16 @@ public final class NumbersTest extends StageTest {
     private final String[] wrongProperty = new String[]{
             "1 10 May", "40 2 bay", "37 4 8", "67 2 day", "2 54 Prime", "6 8 ...", "5 9 none"
     };
-
+    private final String[] wrongSecondProperty = new String[]{
+            "1 10 odd girl", "40 2 even day", "37 4 spy 89", "67 2 DUCK +"
+    };
+    private final String[] wrongTwoProperties = new String[]{
+            "1 10 boy friend", "40 2 long day", "37 4 hot girl", "67 2 strong drake"
+    };
+    private final String[] mutuallyExclusive = new String[]{
+            // Stage #6 Two properties
+            "5 1 odd even", "4 3 even odd", "32 2 sunny square", "2341 4 square sunny", "3153 2 spy duck", "6 7 duck spy"
+    };
     // Stage #3
 
     @DynamicTest(order = 5)
@@ -219,6 +260,8 @@ public final class NumbersTest extends StageTest {
         return program.execute(0).check(FINISHED).result();
     }
 
+    // Stage #6
+
     @DynamicTest(repeat = RANDOM_TESTS, order = 55)
     CheckResult randomTwoNumbersAndPropertyTest() {
         final var request = Request.random(Request.Parameter.THREE);
@@ -230,6 +273,159 @@ public final class NumbersTest extends StageTest {
                 .execute(request)
                 .check(request.getLinesChecker())
                 .check(new ListChecker(request))
+                .check(RUNNING)
+                .check(ASK_REQUEST)
+                .execute(0)
+                .check(FINISHED)
+                .result();
+    }
+
+    @DynamicTest(data = "wrongSecondProperty", order = 60)
+    CheckResult wrongSecondPropertyRequestTest(String wrongSecondProperty) {
+        return program
+                .start()
+                .check(WELCOME)
+                .check(HELP)
+                .check(ASK_REQUEST)
+                .execute(wrongSecondProperty)
+                .check(ERROR_PROPERTY)
+                .check(HELP_PROPERTIES)
+                .check(LIST_PROPERTIES)
+                .check(RUNNING)
+                .check(ASK_REQUEST)
+                .execute(0)
+                .check(FINISHED)
+                .result();
+    }
+
+    @DynamicTest(data = "wrongTwoProperties", order = 62)
+    CheckResult wrongTwoPropertiesRequestTest(String wrongTwoProperties) {
+        return program
+                .start()
+                .check(WELCOME)
+                .check(HELP)
+                .check(ASK_REQUEST)
+                .execute(wrongTwoProperties)
+                .check(ERROR_PROPERTIES)
+                .check(HELP_PROPERTIES)
+                .check(LIST_PROPERTIES)
+                .check(RUNNING)
+                .check(ASK_REQUEST)
+                .execute(0)
+                .check(FINISHED)
+                .result();
+    }
+
+    private Request[] searchTwoProperties() {
+        return Stream.of(
+                "1 7 even spy",
+                "1 10 odd buzz",
+                "1 9 buzz gapful",
+                "1 10 spy buzz",
+                "100000 2 even spy",
+                "100 4 odd gapful",
+                "2000 4 palindromic duck")
+                .map(Request::new)
+                .toArray(Request[]::new);
+    }
+
+    @DynamicTest(data = "searchTwoProperties", order = 65)
+    CheckResult twoNumbersAndTwoPropertyTest(Request request) {
+        return program
+                .start()
+                .check(WELCOME)
+                .check(HELP)
+                .check(ASK_REQUEST)
+                .execute(request)
+                .check(request.getLinesChecker())
+                .check(new ListChecker(request))
+                .check(RUNNING)
+                .check(ASK_REQUEST)
+                .execute(0)
+                .check(FINISHED)
+                .result();
+    }
+
+    private String getWrongRequest() {
+        final var start = 1 + random.nextInt(Short.MAX_VALUE);
+        final var count = 1 + random.nextInt(MAX_COUNT);
+
+        final var properties = new ArrayList<String>();
+        final var incorrect = new String[]{
+                "bAY", "Boy", "~~", "...", "242", "&hj", "simple", "evens",
+                "speck", "_odd_", "reverse", "gipful", "buzzz", "drake"
+        };
+        properties.add(incorrect[random.nextInt(incorrect.length)]);
+
+        final var correct = new ArrayList<>(List.of(NumberProperty.values()));
+        Collections.shuffle(correct);
+        range(0, random.nextInt(2))
+                .mapToObj(correct::get)
+                .map(Enum::name)
+                .forEach(properties::add);
+        Collections.shuffle(properties);
+
+        return start + " " + count + " " + String.join(" ", properties);
+    }
+
+    @DynamicTest(repeat = RANDOM_TESTS, order = 70)
+    CheckResult wrongPropertiesRequestTest() {
+        return program
+                .start()
+                .check(WELCOME)
+                .check(HELP)
+                .check(ASK_REQUEST)
+                .execute(getWrongRequest())
+                .check(ERROR_PROPERTY)
+                .check(HELP_PROPERTIES)
+                .check(LIST_PROPERTIES)
+                .check(RUNNING)
+                .check(ASK_REQUEST)
+                .execute(0)
+                .check(FINISHED)
+                .result();
+    }
+
+    private Request[] getRandomRequests() {
+        return Stream.of(
+                "1 7 spy palindromic",
+                "1 10 palindromic buzz",
+                "1 9 even palindromic",
+                "1 10 even sunny",
+                "100000 2 buzz gapful",
+                "100 4 odd spy",
+                "2000 4 palindromic duck"
+        )
+                .map(Request::new)
+                .toArray(Request[]::new);
+    }
+
+    @DynamicTest(data = "getRandomRequests", order = 65)
+    CheckResult manyPropertiesTest(Request request) {
+        return program
+                .start()
+                .check(WELCOME)
+                .check(HELP)
+                .check(ASK_REQUEST)
+                .execute(request)
+                .check(request.getLinesChecker())
+                .check(new ListChecker(request))
+                .check(RUNNING)
+                .check(ASK_REQUEST)
+                .execute(0)
+                .check(FINISHED)
+                .result();
+    }
+
+    @DynamicTest(data = "mutuallyExclusive", order = 80)
+    CheckResult mutuallyExclusivePropertiesTest(String mutuallyExclusive) {
+        return program
+                .start()
+                .check(WELCOME)
+                .check(HELP)
+                .check(ASK_REQUEST)
+                .execute(mutuallyExclusive)
+                .check(MUTUALLY_EXCLUSIVE)
                 .check(RUNNING)
                 .check(ASK_REQUEST)
                 .execute(0)

@@ -1,16 +1,5 @@
 type: edu
 files:
-  - name: src/numbers/Main.java
-    visible: true
-    text: |
-      package numbers;
-      
-      public class Main {
-          public static void main(String[] args) {
-      //        write your code here
-          }
-      }
-    learner_created: false
   - name: test/util/Checker.java
     visible: false
     text: |
@@ -898,6 +887,20 @@ files:
           enum Parameter {ONE, TWO, THREE}
       }
     learner_created: false
+  - name: src/numbers/Main.java
+    visible: true
+    text: |
+      package numbers;
+      
+      public class Main {
+          public static void main(String[] args) {
+      //        write your code here
+          }
+      }
+    learner_created: false
 feedback_link: https://hyperskill.org/learn/step/13203#comment
-status: Unchecked
-record: -1
+status: Failed
+feedback:
+  message: Execution failed
+  time: "Sun, 17 Sep 2023 20:54:06 UTC"
+record: 6
