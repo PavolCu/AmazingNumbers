@@ -1,0 +1,23 @@
+type: choice
+is_multiple_choice: true
+options:
+  - text: An interface cannot include static and non-static methods at the same time.
+  - text: Static methods in an interface cannot have a body.
+  - text: Default methods in an interface should have a body.
+  - text: Interface abstract methods cannot have a body.
+files:
+  - name: src/Task.java
+    visible: true
+    text: |
+      // You can experiment here, it won’t be checked
+      
+      public class Task {
+        public static void main(String[] args) {
+          // put your code here
+        }
+      }
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/1950#comment
+status: Solved
+record: -1
+local_check: false
