@@ -2,30 +2,42 @@ package numbers;
 
 import java.math.BigInteger;
 import java.util.*;
+import java.util.HashSet;
 
 public class Main {
     public static void main(String[] args) {
+        // Inicializácia scanneru pre vstup od používateľa
         Scanner scanner = new Scanner(System.in);
+
+        // Vypíše uvítaciu správu a inštrukcie
         System.out.println("Welcome to Amazing Numbers!\n");
         printInstructions();
+
+        // Definuje platné vlastnosti pre čísla
         Set<String> validProperties = new HashSet<>(Arrays.asList("EVEN", "ODD", "BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "SUNNY", "SQUARE"));
 
         while (true) {
+            // Požiada používateľa o vstup
             System.out.print("Enter a request: > ");
             String input = scanner.nextLine().trim();
+
+            // Spracuje prípad, keď chce používateľ ukončiť program
             if (input.equals("0")) {
                 System.out.println("\nGoodbye!");
-                break; // Terminate the program
+                break; // Ukončí program
             }
 
+            // Spracuje prípad, keď je vstup prázdny, a vypíše inštrukcie znova
             if (input.isEmpty()) {
                 printInstructions();
             } else if (input.startsWith("FIND ")) {
+                // Spracuje "FIND" požiadavku, ktorá vyhľadáva vlastnosti v rozsahu
                 String[] parts = input.split(" ");
                 if (parts.length == 4) {
+                    // Rozparsuje vstupné parametre
                     BigInteger start = new BigInteger(parts[0]);
                     if (start.compareTo(BigInteger.ZERO) < 0) {
-                        System.out.println("\nThe first parameter should be a natural number or zero.\n");
+                        System.out.println("\nThe first parameter should be a natural number or zero..\n");
                         continue;
                     }
 
@@ -37,23 +49,25 @@ public class Main {
 
                     String property = parts[2].toUpperCase();
                     if (validProperties.contains(property)) {
-                        BigInteger maxCount = BigInteger.valueOf(8); // Default count if not provided
+                        BigInteger maxCount = BigInteger.valueOf(8); // Predvolený počet, ak nie je uvedený
                         try {
                             maxCount = new BigInteger(parts[3]);
                         } catch (NumberFormatException e) {
-                            System.out.println("\nThe fourth parameter should be a valid number.\n");
+                            System.out.println("\nŠtvrtý parameter by mal byť platné číslo.\n");
                             continue;
                         }
 
+                        // Spracuje rozsah so zadanou vlastnosťou
                         processRangeWithProperty(start, property, validProperties, maxCount);
                     } else {
                         System.out.println("The property [" + property + "] is wrong.");
-                        System.out.println("Available properties: " + validProperties);
+                       System.out.println("Available properties: " + validProperties);
                     }
                 } else {
-                    System.out.println("\nInvalid input for FIND request.\n");
+                    System.out.println("\nNeplatný vstup pre FIND požiadavku.\n");
                 }
             } else {
+                // Spracuje ostatné prípady vstupu (napr. jedno číslo, rozsah čísel, viacero vlastností)
                 String[] parts = input.split(" ");
                 BigInteger start = new BigInteger(parts[0]);
                 if (start.compareTo(BigInteger.ZERO) < 0) {
@@ -62,19 +76,22 @@ public class Main {
                 }
 
                 if (parts.length == 1) {
+                    // Spracuje jedno číslo a jeho vlastnosti
                     processNumber(start, validProperties);
                 } else if (parts.length == 2) {
                     try {
-                        BigInteger count = new BigInteger(parts[1]);
-                        if (count.compareTo(BigInteger.ZERO) <= 0) {
+                        // Spracuje rozsah čísel s počítaním
+                        BigInteger numCount = new BigInteger(parts[1]);
+                        if (numCount.compareTo(BigInteger.ZERO) <= 0) {
                             System.out.println("\nThe second parameter should be a natural number.\n");
                             continue;
                         }
-                        processRange(start, count, validProperties);
+                       processRangeWithTwoNumbers(start, numCount, validProperties);
                     } catch (NumberFormatException e) {
                         System.out.println("\nThe second parameter should be a natural number.\n");
                     }
                 } else if (parts.length == 3) {
+                    // Spracuje prípad, keď sú zadané dve čísla a jedna vlastnosť
                     String property = parts[2].toUpperCase();
                     if (validProperties.contains(property)) {
                         try {
@@ -83,65 +100,103 @@ public class Main {
                                 System.out.println("\nThe second parameter should be a natural number.\n");
                                 continue;
                             }
-                            // Objective 7: For two numbers and one property
+                            // Spracuje rozsah so zadanou vlastnosťou
                             processRangeWithProperty(start, property, validProperties, count);
                         } catch (NumberFormatException e) {
-                            System.out.println("\nThe second parameter should be a natural number.\n");
+                            System.out.println("\nDThe second parameter should be a natural number.\n");
                         }
                     } else {
+                        // Vypíše chybové hlásenie, ked je zadaná nesprávna vlastnosť
                         System.out.println("The property [" + property + "] is wrong.");
                         System.out.println("Available properties: " + validProperties);
                     }
                 } else if (parts.length >= 3) {
+                    // Spracuje viacero vlastností
                     List<String> properties = new ArrayList<>();
                     for (int i = 2; i < parts.length; i++) {
                         properties.add(parts[i].toUpperCase());
                     }
 
+                    // Kontroluje nesprávne vlastnosti
                     List<String> incorrectProperties = new ArrayList<>();
                     for (String prop : properties) {
                         if (!validProperties.contains(prop)) {
                             incorrectProperties.add(prop);
                         }
                     }
-
-                    if (incorrectProperties.size() == 1) {
-                        System.out.println("The property [" + incorrectProperties.get(0) + "] is wrong.");
-                        System.out.println("Available properties: " + validProperties);
-                        continue;
-                    } else if (incorrectProperties.size() > 1) {
+                    //Vypíše chybové hlásenie, ak sú nesprávne vlastnosti
+                    if (!incorrectProperties.isEmpty()) {
                         System.out.println("The properties " + incorrectProperties + " are wrong.");
                         System.out.println("Available properties: " + validProperties);
                         continue;
                     }
 
+                    // Pokračuje v ďalšom spracovaní vstupu
                     if (properties.size() == 2) {
+                        //Spracuje prípady s dvoma vlastnosťami
                         String property1 = properties.get(0);
                         String property2 = properties.get(1);
 
                         if (areMutuallyExclusive(property1, property2)) {
-                            Collections.sort(properties); // Sort the properties to ensure consistent order
+                            Collections.sort(properties); //Upravi poradie vlastnosti pre konzistentné usporiadanie
                             System.out.println("The request contains mutually exclusive properties: " + properties);
-                            System.out.println("There are no numbers with these properties");
+                            System.out.println("There are no numbers with these properties.");
                             continue;
                         }
 
                         if (properties.size() == 1) {
+                            //Spracuje rozsah s jednou vlastnosťou
                             processRangeWithProperty(start, properties.get(0), validProperties, BigInteger.valueOf(8));
                         } else if (properties.size() == 2) {
+                            //spracuje rozsah s dvoma vlastnosťami
                             BigInteger count = new BigInteger(parts[1]);
                             processRangeWithProperties(start, properties.get(0), properties.get(1), validProperties, count);
                         }
                     } else {
-                        System.out.println("\nInvalid input.\n");
+                        System.out.println("\nInvalid input\n");
+                    }
+
+                    // Spracuje prípady s nesprávnymi vlastnosťami
+                    if (incorrectProperties.size() == 1) {
+                        System.out.println("The property [" + incorrectProperties.get(0) + "] is wrong.");
+                        System.out.println("Available properties " + validProperties);
+                        continue;
+                    } else if (incorrectProperties.size() > 1) {
+                        System.out.println("The property " + incorrectProperties + " is wrong.");
+                        System.out.println("Available properties: " + validProperties);
+                        continue;
+                    }
+                    //Pokracuje v ďaľšom spracovaní vstupu
+                    if (properties.size() == 2) {
+                        // Spracuje prípady s dvoma vlastnosťami
+                        String property1 = properties.get(0);
+                        String property2 = properties.get(1);
+
+                        if (areMutuallyExclusive(property1, property2)) {
+                            Collections.sort(properties); // Upraví poradie vlastností pre konzistentné usporiadanie
+                            System.out.println("The request contains mutually exclusive properties: " + properties);
+                            System.out.println("There are no numbers with these properties.");
+                            continue;
+                        }
+
+                        if (properties.size() == 1) {
+                            // Spracuje rozsah s jednou vlastnosťou
+                            processRangeWithProperty(start, properties.get(0), validProperties, BigInteger.valueOf(8));
+                        } else if (properties.size() == 2) {
+                            // Spracuje rozsah s dvoma vlastnosťami
+                            BigInteger count = new BigInteger(parts[1]);
+                            processRangeWithProperties(start, properties.get(0), properties.get(1), validProperties, count);
+                        }
+                    } else {
+                        System.out.println("\nInvalid input\n");
                     }
                 }
             }
         }
 
-        scanner.close(); // Close the scanner before exiting
+        // Uzavrie scanner pred ukončením programu
+        scanner.close();
     }
-
 
 
 
@@ -159,30 +214,28 @@ public class Main {
 
     public static void processNumber(BigInteger number, Set<String> validProperties) {
         System.out.println("Properties of " + number);
-        boolean hasProperties = false;
+        Map<String, Boolean> propertyMap = new LinkedHashMap<>();
 
         for (String property : validProperties) {
             boolean hasProperty = hasProperty(number, property);
-            System.out.println("\t" + property.toLowerCase() + ": " + hasProperty);
-            if (hasProperty) {
-                hasProperties = true;
-            }
+            propertyMap.put(property.toLowerCase(), hasProperty);
         }
 
-        if (!hasProperties) {
-            System.out.println("\tnone");
+        for (Map.Entry<String, Boolean> entry : propertyMap.entrySet()) {
+            String propName = entry.getKey();
+            boolean propValue = entry.getValue();
+            System.out.println("\t" + propName + ": " + propValue);
         }
     }
 
 
-    public static void processRange(BigInteger start, BigInteger end, Set<String> validProperties) {
+    /*public static void processRange(BigInteger start, BigInteger end, Set<String> validProperties) {
         if (start.compareTo(BigInteger.ZERO) < 0 || end.compareTo(BigInteger.ZERO) < 0) {
             System.out.println("\nThe parameters should be natural numbers or zero.\n");
             return;
         }
 
         BigInteger current = start;
-        boolean isFirstLine = true; // Přidáno pro první řádek
 
         while (current.compareTo(end) <= 0) {
             List<String> properties = new ArrayList<>();
@@ -193,21 +246,12 @@ public class Main {
             }
 
             if (!properties.isEmpty()) {
-                if (isFirstLine) {
-                    // První řádek obsahující titulek
-                    System.out.println("Properties of " + current);
-                    isFirstLine = false;
-                } else {
-                    System.out.print(current + " is ");
-                    System.out.println(String.join(", ", properties));
-                }
+                System.out.println(current + " is " + String.join(", ", properties));
             }
 
             current = current.add(BigInteger.ONE);
         }
-    }
-
-
+    }*/
 
 
     public static void processRangeWithProperty(BigInteger start, String property, Set<String> validProperties, BigInteger count) {
@@ -215,37 +259,83 @@ public class Main {
         BigInteger processed = BigInteger.ZERO;
 
         while (processed.compareTo(count) < 0) {
-            if (hasProperty(number, property)) {
-                printPropertiesInLine(number, validProperties);
+            List<String> properties = new ArrayList<>();
+            for (String prop : validProperties) {
+                if (hasProperty(number, prop)) {
+                    properties.add(prop.toLowerCase());
+                }
+            }
+
+            if (properties.contains(property.toLowerCase())) {
+                // Vypíšeme číslo s požadovanou vlastnosťou
+                System.out.print(number + " is " + property.toLowerCase());
+
+                // Doplníme ďalšie vlastnosti ku danej vlastnosti
+                for (String prop : properties) {
+                    if (!prop.equals(property.toLowerCase())) {
+                        System.out.print(", " + prop);
+                    }
+                }
+                System.out.println();
+
                 processed = processed.add(BigInteger.ONE);
             }
+
             number = number.add(BigInteger.ONE);
         }
     }
+
+
+// ...
 
     public static void processRangeWithProperties(BigInteger start, String property1, String property2, Set<String> validProperties, BigInteger count) {
         BigInteger number = start;
         BigInteger processed = BigInteger.ZERO;
+        BigInteger skipped = BigInteger.ZERO;
 
         while (processed.compareTo(count) < 0) {
-            Set<String> properties = new HashSet<>();
-            for (String property : validProperties) {
-                if (hasProperty(number, property)) {
-                    properties.add(property.toLowerCase());
+            List<String> properties = new ArrayList<>();
+            for (String prop : validProperties) {
+                if (hasProperty(number, prop)) {
+                    properties.add(prop.toLowerCase());
                 }
             }
 
-            if (properties.contains(property1.toLowerCase()) && properties.contains(property2.toLowerCase())) {
-                System.out.print(String.format("%" + number.toString().length() + "s is ", number) + String.join(", ", properties));
-                System.out.println();
+            boolean hasProperty1 = properties.contains(property1.toLowerCase());
+            boolean hasProperty2 = properties.contains(property2.toLowerCase());
+
+            if (hasProperty1 && hasProperty2) {
+                String numberStr = String.format("%" + number.toString().length() + "s", number);
+                String propertyStr = String.join(", ", properties);
+
+                System.out.println(numberStr + " is " + propertyStr);
                 processed = processed.add(BigInteger.ONE);
             }
 
+            // Move to the next number
             number = number.add(BigInteger.ONE);
+
+            // Skip numbers that don't meet both property1 and property2
+            while (!hasProperty(number, property1) || !hasProperty(number, property2)) {
+                number = number.add(BigInteger.ONE);
+                skipped = skipped.add(BigInteger.ONE);
+            }
+
+            // Break if it goes too far or if we've reached the count
+            if (skipped.compareTo(count) >= 2 || processed.compareTo(count) >= count.intValue()) {
+                break;
+            }
         }
     }
 
-    public static void printPropertiesInLine(BigInteger number, Set<String> validProperties) {
+
+
+
+
+
+
+
+    /*public static void printPropertiesInLine(BigInteger number, Set<String> validProperties) {
         List<String> properties = new ArrayList<>();
         for (String property : validProperties) {
             if (hasProperty(number, property)) {
@@ -257,7 +347,7 @@ public class Main {
             System.out.print(number + " is ");
             System.out.println(String.join(", ", properties));
         }
-    }
+    }*/
 
 
     public static boolean hasProperty(BigInteger number, String property) {
@@ -363,17 +453,61 @@ public class Main {
         return false;
     }
 
-    public static void findNumbersWithProperty(String property, BigInteger start, BigInteger count) {
+   /* public static void findNumbersWithProperty(String property, BigInteger start, BigInteger count) {
         BigInteger number = start;
         BigInteger foundCount = BigInteger.ZERO;
 
         while (foundCount.compareTo(count) < 0) {
             if (hasProperty(number, property)) {
-                System.out.println(number + " has property " + property);
+                // Zoznam pre uchovanie vlastností pre dané číslo
+                List<String> properties = new ArrayList<>();
+
+                // Pridá požadovanú vlastnosť
+                properties.add(property.toLowerCase());
+
+                // Prejdeme všetky platné vlastnosti a pridáme tie, ktoré platia pre dané číslo
+                for (String prop : validProperties) {
+                    if (hasProperty(number, prop)) {
+                        properties.add(prop.toLowerCase());
+                    }
+                }
+
+                // Vypíšeme číslo a jeho vlastnosti
+                System.out.print(number + " is ");
+                System.out.println(String.join(", ", properties));
+
                 foundCount = foundCount.add(BigInteger.ONE);
             }
+            number = number.add(BigInteger.ONE);
+        }
+    }*/
+
+    // Prídame túto metódu pre spracovanie rozsahu s dvoma číslami a dvoma vlastnosťami
+    public static void processRangeWithTwoNumbers(BigInteger start, BigInteger numCount, Set<String> validProperties) {
+        BigInteger number = start;
+        BigInteger processed = BigInteger.ZERO;
+
+        while (processed.compareTo(numCount) < 0) {
+            List<String> properties = new ArrayList<>();
+            for (String prop : validProperties) {
+                if (hasProperty(number, prop)) {
+                    properties.add(prop.toLowerCase());
+                }
+            }
+
+            if (!properties.isEmpty()) {
+                System.out.print(number + " is " + String.join(", ", properties));
+                System.out.println();
+
+                processed = processed.add(BigInteger.ONE);
+            }
+
             number = number.add(BigInteger.ONE);
         }
     }
 
 }
+
+
+
+
