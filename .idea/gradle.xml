@@ -26,6 +26,14 @@
             <option value="$PROJECT_DIR$/Topics/Interface/Theory" />
             <option value="$PROJECT_DIR$/Topics/Interface/What does an interface define" />
             <option value="$PROJECT_DIR$/Topics/Interface/Which methods must be overridden" />
+            <option value="$PROJECT_DIR$/Topics/Polymorphism/Find mistake" />
+            <option value="$PROJECT_DIR$/Topics/Polymorphism/Notification" />
+            <option value="$PROJECT_DIR$/Topics/Polymorphism/Publication and its subclasses" />
+            <option value="$PROJECT_DIR$/Topics/Polymorphism/Runtime method resolution" />
+            <option value="$PROJECT_DIR$/Topics/Polymorphism/Runtime polymorphic behavior" />
+            <option value="$PROJECT_DIR$/Topics/Polymorphism/The time of overloading" />
+            <option value="$PROJECT_DIR$/Topics/Polymorphism/Theory" />
+            <option value="$PROJECT_DIR$/Topics/Polymorphism/Type of polymorphism" />
             <option value="$PROJECT_DIR$/Topics/Processing strings/Compression algorithm" />
             <option value="$PROJECT_DIR$/Topics/Processing strings/Convert a date" />
             <option value="$PROJECT_DIR$/Topics/Processing strings/Cutting out the middle of a string" />
@@ -36,6 +44,13 @@
             <option value="$PROJECT_DIR$/Topics/Processing strings/Piece of alphabet" />
             <option value="$PROJECT_DIR$/Topics/Processing strings/The percentage of G and C characters" />
             <option value="$PROJECT_DIR$/Topics/Processing strings/Theory" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Determine results of calling the method" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Fix a method to check the string is palindrome" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Fix the method to print strings in the reverse order" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Obscure method" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Select statement" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Theory" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/What does the method do" />
             <option value="$PROJECT_DIR$/util" />
           </set>
         </option>

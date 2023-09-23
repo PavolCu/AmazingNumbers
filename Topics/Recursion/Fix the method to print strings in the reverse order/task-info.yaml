@@ -1,0 +1,32 @@
+type: code
+files:
+  - name: src/Main.java
+    visible: true
+    text: |-
+      import java.util.Scanner;
+      
+      public class Main {
+      
+          /* Fix this method */
+          public static void printReverseCharByChar(String s) {
+              if (s.length() > 0) {
+                  int last = s.length() - 1;
+                  printReverseCharByChar(s.substring(0, last));
+                  System.out.print(s.charAt(last));
+              }
+          }
+      
+          /* Do not change code below */
+          public static void main(String[] args) {
+              final Scanner scanner = new Scanner(System.in);
+              printReverseCharByChar(scanner.nextLine());
+          }
+      }
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/3117#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Wed, 20 Sep 2023 12:47:08 UTC"
+record: -1
+submission_language: java17

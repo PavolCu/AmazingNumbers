@@ -1,0 +1,24 @@
+type: choice
+is_multiple_choice: true
+options:
+  - text: A method cannot invoke itself recursively multiple times.
+  - text: Recursive calls use the program stack.
+  - text: Recursive method is a method that calls itself directly or indirectly.
+  - text: If a recursion doesn't have a base case it will be automatically stopped after
+      100 recursive calls.
+files:
+  - name: src/Task.java
+    visible: true
+    text: |
+      // You can experiment here, it won’t be checked
+      
+      public class Task {
+        public static void main(String[] args) {
+          // put your code here
+        }
+      }
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/3119#comment
+status: Solved
+record: -1
+local_check: false

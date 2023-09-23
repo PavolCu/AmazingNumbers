@@ -1,0 +1,29 @@
+<h2>Fix a method to check the string is palindrome</h2>
+<div class="step-text">
+<p>Here is a method that checks if the input string is a palindrome:</p>
+<p> </p>
+<pre><code class="language-java">public static boolean isPalindrome(String s) {
+    if (s.length() == 2 || s.length() == 1) { // (1)
+        return true; // (2)
+    }
+        
+    int lastIndex = s.length() - 1; // (3)
+    boolean r = s.charAt(0) == s.charAt(lastIndex); // (4)
+     
+    return r || isPalindrome(s.substring(1, lastIndex)); // (5)
+}</code></pre>
+<p> </p>
+<p>Unfortunately, the method is wrong. To fix it, you should change several lines of the code.</p>
+<p> </p>
+<p>Choose the necessary whole line replacements.</p>
+<p> </p>
+<p>Here are some tests with their expected results. The method should pass all tests.</p>
+<p> </p>
+<pre><code class="language-java">isPalindrome(""); // true
+isPalindrome("a"); // true
+isPalindrome("aa"); // true
+isPalindrome("ab"); // false
+isPalindrome("aba"); // true
+isPalindrome("abab"); // false
+...</code></pre>
+</div>

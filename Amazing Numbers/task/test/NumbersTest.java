@@ -19,7 +19,7 @@ public final class NumbersTest extends StageTest {
     private static final int NEGATIVE_NUMBERS_TESTS = 5;
     private static final int FIRST_NUMBERS = 15;
     private static final int RANDOM_TESTS = 10;
-    private static final int MAX_PROPERTIES = 2;
+    private static final int MAX_PROPERTIES = 5;
     private static final int MAX_COUNT = 20;
     private static final int MIN_START = 2;
 
@@ -104,7 +104,9 @@ public final class NumbersTest extends StageTest {
     };
     private final String[] mutuallyExclusive = new String[]{
             // Stage #6 Two properties
-            "5 1 odd even", "4 3 even odd", "32 2 sunny square", "2341 4 square sunny", "3153 2 spy duck", "6 7 duck spy"
+            "5 1 odd even", "4 3 even odd", "32 2 sunny square", "3153 2 spy duck", "6 7 duck spy",
+            // Stage #7 Several properties
+            "1 2 spy odd sunny even", "7 2 sunny even duck buzz square", "9 5 even spy buzz duck"
     };
     // Stage #3
 
@@ -346,6 +348,8 @@ public final class NumbersTest extends StageTest {
                 .result();
     }
 
+    // Stage #7
+
     private String getWrongRequest() {
         final var start = 1 + random.nextInt(Short.MAX_VALUE);
         final var count = 1 + random.nextInt(MAX_COUNT);
@@ -359,7 +363,7 @@ public final class NumbersTest extends StageTest {
 
         final var correct = new ArrayList<>(List.of(NumberProperty.values()));
         Collections.shuffle(correct);
-        range(0, random.nextInt(2))
+        range(0, random.nextInt(MAX_PROPERTIES))
                 .mapToObj(correct::get)
                 .map(Enum::name)
                 .forEach(properties::add);
@@ -388,13 +392,13 @@ public final class NumbersTest extends StageTest {
 
     private Request[] getRandomRequests() {
         return Stream.of(
-                "1 7 spy palindromic",
-                "1 10 palindromic buzz",
-                "1 9 even palindromic",
-                "1 10 even sunny",
-                "100000 2 buzz gapful",
-                "100 4 odd spy",
-                "2000 4 palindromic duck"
+                "1 7 odd spy palindromic",
+                "1 10 even palindromic duck buzz",
+                "1 9 even palindromic duck buzz gapful",
+                "1 10 even sunny duck buzz gapful",
+                "100000 2 even spy buzz gapful",
+                "100 4 odd spy gapful",
+                "2000 4 even palindromic duck"
         )
                 .map(Request::new)
                 .toArray(Request[]::new);
@@ -417,6 +421,7 @@ public final class NumbersTest extends StageTest {
                 .result();
     }
 
+    // feedback = "The program should check for mutually exclusive properties"
     @DynamicTest(data = "mutuallyExclusive", order = 80)
     CheckResult mutuallyExclusivePropertiesTest(String mutuallyExclusive) {
         return program

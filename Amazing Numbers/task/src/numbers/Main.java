@@ -1,405 +1,239 @@
 package numbers;
 
-import java.math.BigInteger;
-import java.util.*;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        // Inicializácia scanneru pre vstup od používateľa
-        Scanner scanner = new Scanner(System.in);
-
-        // Vypíše uvítaciu správu a inštrukcie
-        System.out.println("Welcome to Amazing Numbers!\n");
-        printInstructions();
-
-        // Definuje platné vlastnosti pre čísla
-        Set<String> validProperties = new HashSet<>(Arrays.asList("EVEN", "ODD", "BUZZ", "DUCK", "PALINDROMIC", "GAPFUL", "SPY", "SUNNY", "SQUARE"));
+        System.out.print("""
+                Welcome to Amazing Numbers!
+                                
+                Supported requests:
+                - enter a natural number to know its properties;
+                - enter two natural numbers to obtain the properties of the list:
+                  * the first parameter represents a starting number;
+                  * the second parameter shows how many consecutive numbers are to be printed;
+                - two natural numbers and properties to search for;
+                - separate the parameters with one space;
+                - enter 0 to exit.
+                """);
 
         while (true) {
-            // Požiada používateľa o vstup
-            System.out.print("Enter a request: > ");
-            String input = scanner.nextLine().trim();
+            System.out.print("\nEnter a request: > ");
+            String[] array = new java.util.Scanner(System.in).nextLine().split(" ");
 
-            // Spracuje prípad, keď chce používateľ ukončiť program
-            if (input.equals("0")) {
-                System.out.println("\nGoodbye!");
-                break; // Ukončí program
+            long first = Long.parseLong(array[0]);
+            if (0 == first) break;
+
+            long second = 1;
+            if (1 < array.length) second = Long.parseLong(array[1]);
+            if (0 == second) continue;
+
+            System.out.println();
+
+            if (0 > first || 0 > second) {
+                System.out.printf("The %s parameter should be a natural number or zero.\n", 0 > first ? "first" : "second");
+                continue;
             }
 
-            // Spracuje prípad, keď je vstup prázdny, a vypíše inštrukcie znova
-            if (input.isEmpty()) {
-                printInstructions();
-            } else if (input.startsWith("FIND ")) {
-                // Spracuje "FIND" požiadavku, ktorá vyhľadáva vlastnosti v rozsahu
-                String[] parts = input.split(" ");
-                if (parts.length == 4) {
-                    // Rozparsuje vstupné parametre
-                    BigInteger start = new BigInteger(parts[0]);
-                    if (start.compareTo(BigInteger.ZERO) < 0) {
-                        System.out.println("\nThe first parameter should be a natural number or zero..\n");
-                        continue;
-                    }
+            List<String> propertiesToCheck = new ArrayList<>();
+            for (int i = 2; i < array.length; i++) {
+                propertiesToCheck.add(array[i].toLowerCase());
+            }
 
-                    BigInteger count = new BigInteger(parts[1]);
-                    if (count.compareTo(BigInteger.ZERO) <= 0) {
-                        System.out.println("\nThe second parameter should be a natural number.\n");
-                        continue;
-                    }
+            if (arePropertiesWrong(propertiesToCheck)) continue;
 
-                    String property = parts[2].toUpperCase();
-                    if (!validProperties.contains(property)) {
-                        System.out.println("The property [" + property + "] is wrong.");
-                        System.out.println("Available properties: " + validProperties);
-                        continue;
-                    }
+            // Find the nearest number that meets the properties
+            long currentNumber = first;
+            while (!meetsProperties(currentNumber, propertiesToCheck)) {
+                currentNumber++;
+            }
 
-                    BigInteger maxCount = BigInteger.valueOf(8); // Predvolený počet, ak nie je uvedený
-                    try {
-                        maxCount = new BigInteger(parts[3]);
-                    } catch (NumberFormatException e) {
-                        System.out.println("\nŠtvrtý parameter by mal byť platné číslo.\n");
-                        continue;
-                    }
-
-                    // Spracuje rozsah so zadanou vlastnosťou
-                    processRangeWithProperty(start, property, validProperties, maxCount);
+            for (long number = currentNumber, outputCount = 0; outputCount < second; number++) {
+                if (1 == array.length) {
+                    printList(number);
+                    outputCount++;
                 } else {
-                    System.out.println("\nNeplatný vstup pre FIND požiadavku.\n");
-                }
-            } else {
-                // Spracuje ostatné prípady vstupu (napr. jedno číslo, rozsah čísel, viacero vlastností)
-                String[] parts = input.split(" ");
-                BigInteger start = new BigInteger(parts[0]);
-                if (start.compareTo(BigInteger.ZERO) < 0) {
-                    System.out.println("\nThe first parameter should be a natural number or zero.\n");
-                    continue;
-                }
-
-                if (parts.length == 1) {
-                    // Spracuje jedno číslo a jeho vlastnosti
-                    processNumber(start, validProperties);
-                } else if (parts.length == 2) {
-                    try {
-                        // Spracuje rozsah čísel s počítaním
-                        BigInteger numCount = new BigInteger(parts[1]);
-                        if (numCount.compareTo(BigInteger.ZERO) <= 0) {
-                            System.out.println("\nThe second parameter should be a natural number.\n");
-                            continue;
-                        }
-                        processRangeWithTwoNumbers(start, numCount, validProperties);
-                    } catch (NumberFormatException e) {
-                        System.out.println("\nThe second parameter should be a natural number.\n");
-                    }
-                } else if (parts.length == 3) {
-                    // Spracuje prípad, keď sú zadané dve čísla a jedna vlastnosť
-                    String property = parts[2].toUpperCase();
-                    if (!validProperties.contains(property)) {
-                        System.out.println("The property [" + property + "] is wrong.");
-                        System.out.println("Available properties: " + validProperties);
-                        continue;
-                    }
-                    try {
-                        BigInteger count = new BigInteger(parts[1]);
-                        if (count.compareTo(BigInteger.ZERO) <= 0) {
-                            System.out.println("\nThe second parameter should be a natural number.\n");
-                            continue;
-                        }
-                        // Spracuje rozsah so zadanou vlastnosťou
-                        processRangeWithProperty(start, property, validProperties, count);
-                    } catch (NumberFormatException e) {
-                        System.out.println("\nDThe second parameter should be a natural number.\n");
-                    }
-                } else if (parts.length >= 3) {
-                    // Spracuje viacero vlastností
-                    List<String> properties = new ArrayList<>();
-                    for (int i = 2; i < parts.length; i++) {
-                        properties.add(parts[i].toUpperCase());
-                    }
-
-                    // Kontroluje nesprávne vlastnosti
-                    List<String> incorrectProperties = new ArrayList<>();
-                    for (String prop : properties) {
-                        if (!validProperties.contains(prop)) {
-                            incorrectProperties.add(prop);
-                        }
-                    }
-                    //Vypíše chybové hlásenie, ak sú nesprávne vlastnosti
-                    if (!incorrectProperties.isEmpty()) {
-                        if (incorrectProperties.size() == 1) {
-                            System.out.println("The property [" + incorrectProperties.get(0) + "] is wrong.");
-                        } else {
-                            System.out.println("The properties " + incorrectProperties + " are wrong.");
-                        }
-                        System.out.println("Available properties: " + validProperties);
-                        continue;
-                    }
-
-                    // Pokračuje v ďalšom spracovaní vstupu
-                    if (properties.size() == 2) {
-                        //Spracuje prípady s dvoma vlastnosťami
-                        String property1 = properties.get(0);
-                        String property2 = properties.get(1);
-
-                        if (areMutuallyExclusive(property1, property2)) {
-                            Collections.sort(properties); //Upravi poradie vlastnosti pre konzistentné usporiadanie
-                            System.out.println("The request contains mutually exclusive properties: " + properties);
-                            System.out.println("There are no numbers with these properties.");
-                            continue;
-                        }
-
-                        if (properties.size() == 1) {
-                            //Spracuje rozsah s jednou vlastnosťou
-                            processRangeWithProperty(start, properties.get(0), validProperties, BigInteger.valueOf(8));
-                        } else if (properties.size() == 2) {
-                            //spracuje rozsah s dvoma vlastnosťami
-                            BigInteger count = new BigInteger(parts[1]);
-                            processRangeWithProperties(start, properties.get(0), properties.get(1), validProperties, count);
-                        }
-                    } else {
-                        System.out.println("\nInvalid input\n");
-                    }
+                    outputCount += printRow(number, propertiesToCheck);
                 }
             }
         }
-
-        // Uzavrie scanner pred ukončením programu
-        scanner.close();
+        System.out.print("Goodbye!");
     }
 
+    private static boolean arePropertiesWrong(List<String> propertiesToCheck) {
+        List<String> properties = Arrays.asList("buzz", "duck", "palindromic", "gapful", "spy", "square", "sunny", "even", "odd", "jumping");
 
+        List<String> wrong = new ArrayList<>();
 
-    public static void printInstructions() {
-        System.out.println("Supported requests:");
-        System.out.println("- enter a natural number to know its properties;");
-        System.out.println("- enter two natural numbers to obtain the properties of the list:");
-        System.out.println(" * the first parameter represents a starting number;");
-        System.out.println(" * the second parameter shows how many consecutive numbers are to be printed;");
-        System.out.println("- two natural numbers and a property to search for;");
-        System.out.println("- two natural numbers and two properties to search for;");
-        System.out.println("- separate the parameters with one space; ");
-        System.out.println("- enter 0 to exit.\n");
-    }
-
-    public static void processNumber(BigInteger number, Set<String> validProperties) {
-        System.out.println("Properties of " + number);
-        Map<String, Boolean> propertyMap = new LinkedHashMap<>();
-
-        for (String property : validProperties) {
-            boolean hasProperty = hasProperty(number, property);
-            propertyMap.put(property.toLowerCase(), hasProperty);
-        }
-
-        for (Map.Entry<String, Boolean> entry : propertyMap.entrySet()) {
-            String propName = entry.getKey();
-            boolean propValue = entry.getValue();
-            System.out.println("\t" + propName + ": " + propValue);
-        }
-    }
-
-    public static void processRangeWithProperty(BigInteger start, String property, Set<String> validProperties, BigInteger count) {
-        BigInteger number = start;
-        BigInteger processed = BigInteger.ZERO;
-
-        while (processed.compareTo(count) < 0) {
-            List<String> properties = new ArrayList<>();
-            for (String prop : validProperties) {
-                if (hasProperty(number, prop)) {
-                    properties.add(prop.toLowerCase());
-                }
-            }
-
-            if (properties.contains(property.toLowerCase())) {
-                // Vypíšeme číslo s požadovanou vlastnosťou
-                System.out.print(number + " is " + property.toLowerCase());
-
-                // Doplníme ďalšie vlastnosti ku danej vlastnosti
-                for (String prop : properties) {
-                    if (!prop.equals(property.toLowerCase())) {
-                        System.out.print(", " + prop);
-                    }
-                }
-                System.out.println();
-
-                processed = processed.add(BigInteger.ONE);
-            }
-
-            number = number.add(BigInteger.ONE);
-        }
-    }
-
-
-// ...
-
-    public static void processRangeWithProperties(BigInteger start, String property1, String property2, Set<String> validProperties, BigInteger count) {
-        BigInteger number = start;
-        BigInteger processed = BigInteger.ZERO;
-        BigInteger skipped = BigInteger.ZERO;
-
-        while (processed.compareTo(count) < 0) {
-            List<String> properties = new ArrayList<>();
-            for (String prop : validProperties) {
-                if (hasProperty(number, prop)) {
-                    properties.add(prop.toLowerCase());
-                }
-            }
-
-            boolean hasProperty1 = properties.contains(property1.toLowerCase());
-            boolean hasProperty2 = properties.contains(property2.toLowerCase());
-
-            if (hasProperty1 && hasProperty2) {
-                String numberStr = String.format("%" + number.toString().length() + "s", number);
-                String propertyStr = String.join(", ", properties);
-
-                System.out.println(numberStr + " is " + propertyStr);
-                processed = processed.add(BigInteger.ONE);
-            }
-
-            // Move to the next number
-            number = number.add(BigInteger.ONE);
-
-            // Skip numbers that don't meet both property1 and property2
-            while (!hasProperty(number, property1) || !hasProperty(number, property2)) {
-                number = number.add(BigInteger.ONE);
-                skipped = skipped.add(BigInteger.ONE);
-            }
-
-            // Break if it goes too far or if we've reached the count
-            if (skipped.compareTo(count) >= 2 || processed.compareTo(count) >= count.intValue()) {
-                break;
+        for (String property : propertiesToCheck) {
+            if (!("".equals(property) || properties.contains(property))) {
+                wrong.add(property);
             }
         }
-    }
 
-
-
-    public static boolean hasProperty(BigInteger number, String property) {
-        switch (property.toUpperCase()) {
-            case "EVEN":
-                return number.mod(new BigInteger("2")).equals(BigInteger.ZERO);
-            case "ODD":
-                return !number.mod(new BigInteger("2")).equals(BigInteger.ZERO);
-            case "BUZZ":
-                return isBuzzNumber(number);
-            case "DUCK":
-                return isDuckNumber(number);
-            case "PALINDROMIC":
-                return isPalindromicNumber(number);
-            case "GAPFUL":
-                return isGapfulNumber(number);
-            case "SPY":
-                return isSpyNumber(number);
-            case "SUNNY":
-                return isSunnyNumber(number);
-            case "SQUARE":
-                return isSquareNumber(number);
-            default:
-                return false;
+        if (wrong.size() != 0) {
+            boolean isMultiple = wrong.size() > 1;
+            System.out.printf("The propert%s %s %s wrong.\n", isMultiple ? "ies" : "y", wrong.toString().toUpperCase(), isMultiple ? "are" : "is");
+            System.out.printf("Available properties: %s\n", properties.toString().toUpperCase());
+            return true;
         }
-    }
 
-    // ... Other property-checking methods ...
-
-    public static boolean isBuzzNumber(BigInteger number) {
-        return number.mod(new BigInteger("7")).equals(BigInteger.ZERO) || number.mod(new BigInteger("10")).equals(new BigInteger("7"));
-    }
-
-    public static boolean isDuckNumber(BigInteger number) {
-        while (number.compareTo(BigInteger.ZERO) > 0) {
-            BigInteger digit = number.mod(new BigInteger("10"));
-            if (digit.equals(BigInteger.ZERO)) {
-                return true;
-            }
-            number = number.divide(new BigInteger("10"));
+        if (propertiesToCheck.contains("even") && propertiesToCheck.contains("odd") ||
+                propertiesToCheck.contains("square") && propertiesToCheck.contains("sunny") ||
+                propertiesToCheck.contains("duck") && propertiesToCheck.contains("spy")) {
+            System.out.printf("The request contains mutually exclusive properties: %s\n", propertiesToCheck.toString().toUpperCase());
+            System.out.println("There are no numbers with these properties.");
+            return true;
         }
         return false;
     }
 
-    public static boolean isPalindromicNumber(BigInteger number) {
-        BigInteger originalNumber = number;
-        BigInteger reverseNumber = BigInteger.ZERO;
-        for (; number.compareTo(BigInteger.ZERO) > 0; number = number.divide(new BigInteger("10"))) {
-            BigInteger digit = number.mod(new BigInteger("10"));
-            reverseNumber = reverseNumber.multiply(new BigInteger("10")).add(digit);
-        }
-        return originalNumber.equals(reverseNumber);
+    private static void printList(long number) {
+        System.out.println("Properties of " + number);
+        System.out.println("        buzz: " + isBuzz(number));
+        System.out.println("        duck: " + isDuck(number));
+        System.out.println(" palindromic: " + isPalindromic(number));
+        System.out.println("      gapful: " + isGapful(number));
+        System.out.println("         spy: " + isSpy(number));
+        System.out.println("      square: " + isSquare(number));
+        System.out.println("       sunny: " + isSunny(number));
+        System.out.println("        even: " + isEven(number));
+        System.out.println("         odd: " + isOdd(number));
+        System.out.println("     jumping: " + isJumping(number));
     }
 
-    public static boolean isGapfulNumber(BigInteger number) {
-        if (number.compareTo(new BigInteger("100")) < 0) {
-            return false;
-        } else {
-            BigInteger firstDigit = new BigInteger(number.toString().substring(0, 1));
-            BigInteger lastDigit = number.mod(new BigInteger("10"));
-            String concatenated = firstDigit.toString() + lastDigit.toString();
-            BigInteger concatenatedNumber = new BigInteger(concatenated);
-            return number.mod(concatenatedNumber).equals(BigInteger.ZERO);
+    private static int printRow(Long number, List<String> propertiesToCheck) {
+        StringBuilder output = new StringBuilder();
+
+        if (isBuzz(number)) output.append(", buzz");
+        if (isDuck(number)) output.append(", duck");
+        if (isPalindromic(number)) output.append(", palindromic");
+        if (isGapful(number)) output.append(", gapful");
+        if (isSpy(number)) output.append(", spy");
+        if (isSquare(number)) output.append(", square");
+        if (isSunny(number)) output.append(", sunny");
+        if (isEven(number)) output.append(", even");
+        if (isOdd(number)) output.append(", odd");
+        if (isJumping(number)) output.append(", jumping");
+
+        String strOutput = output.substring(2);
+
+        if (propertiesToCheck.stream().allMatch(strOutput::contains)) {
+            System.out.printf("%d is %s\n", number, strOutput);
+            return 1;
         }
+        return 0;
     }
 
-    public static boolean isSpyNumber(BigInteger number) {
-        String numStr = number.toString();
-        int sum = 0;
-        int product = 1;
+    private static boolean isBuzz(long number) {
+        return number % 7 == 0 || Long.toString(number).endsWith("7");
+    }
 
-        for (int i = 0; i < numStr.length(); ++i) {
-            char digitChar = numStr.charAt(i);
-            int digit = Character.getNumericValue(digitChar);
-            sum += digit;
-            product *= digit;
+    private static boolean isDuck(long number) {
+        return Long.toString(number).substring(1).contains("0");
+    }
+
+    private static boolean isPalindromic(long number) {
+        String strNumber = Long.toString(number);
+        boolean isPalindromic = true;
+
+        for (int i = 0; i < strNumber.length(); i++) {
+            isPalindromic = isPalindromic && strNumber.charAt(i) == strNumber.charAt(strNumber.length() - 1 - i);
         }
+        return isPalindromic;
+    }
 
+    private static boolean isGapful(long number) {
+        String strNumber = Long.toString(number);
+
+        if (strNumber.length() > 2) {
+            return number % Long.parseLong(strNumber.charAt(0) + strNumber.substring(strNumber.length() - 1)) == 0;
+        }
+        return false;
+    }
+
+    private static boolean isSpy(long number) {
+        long sum = 0, product = 1;
+
+        for (char c : Long.toString(number).toCharArray()) {
+            sum += c - '0';
+            product *= c - '0';
+        }
         return sum == product;
     }
 
-    public static boolean isSunnyNumber(BigInteger number) {
-        BigInteger nextNumber = number.add(BigInteger.ONE);
-        double sqrt = Math.sqrt(nextNumber.doubleValue());
-        return sqrt == (int) sqrt;
+    private static boolean isSquare(long number) {
+        long rootNumber = (long) Math.sqrt(number);
+        return number == Math.pow(rootNumber, 2);
     }
 
-    public static boolean isSquareNumber(BigInteger number) {
-        double sqrt = Math.sqrt(number.doubleValue());
-        return sqrt == (int) sqrt;
+    private static boolean isSunny(long number) {
+        long sunnyRoot = (long) Math.sqrt(++number);
+        return number == Math.pow(sunnyRoot, 2);
     }
 
-
-    public static boolean areMutuallyExclusive(String property1, String property2) {
-        List<String> pair1 = Arrays.asList("EVEN", "ODD");
-        List<String> pair2 = Arrays.asList("DUCK", "SPY");
-        List<String> pair3 = Arrays.asList("SUNNY", "SQUARE");
-
-        if (pair1.contains(property1) && pair1.contains(property2)) return true;
-        if (pair2.contains(property1) && pair2.contains(property2)) return true;
-        if (pair3.contains(property1) && pair3.contains(property2)) return true;
-
-        return false;
+    private static boolean isEven(long number) {
+        return number % 2 == 0;
     }
 
-    // Prídame túto metódu pre spracovanie rozsahu s dvoma číslami a dvoma vlastnosťami
-    public static void processRangeWithTwoNumbers(BigInteger start, BigInteger numCount, Set<String> validProperties) {
-        BigInteger number = start;
-        BigInteger processed = BigInteger.ZERO;
+    private static boolean isOdd(long number) {
+        return number % 2 == 1;
+    }
 
-        while (processed.compareTo(numCount) < 0) {
-            List<String> properties = new ArrayList<>();
-            for (String prop : validProperties) {
-                if (hasProperty(number, prop)) {
-                    properties.add(prop.toLowerCase());
-                }
-            }
+    private static boolean isJumping(long number) {
+        String strNumber = Long.toString(number);
+        int length = strNumber.length();
 
-            if (!properties.isEmpty()) {
-                System.out.print(number + " is " + String.join(", ", properties));
-                System.out.println();
-
-                processed = processed.add(BigInteger.ONE);
-            }
-
-            number = number.add(BigInteger.ONE);
+        // Single-digit numbers are considered Jumping numbers
+        if (length == 1) {
+            return true;
         }
+
+        for (int i = 1; i < length; i++) {
+            int digit1 = strNumber.charAt(i - 1) - '0';
+            int digit2 = strNumber.charAt(i) - '0';
+
+            // Check if the adjacent digits differ by 1
+            if (Math.abs(digit1 - digit2) != 1) {
+                return false; // Not a Jumping number
+            }
+        }
+
+        return true; // It's a Jumping number
     }
+
+    private static boolean meetsProperties(long number, List<String> propertiesToCheck) {
+        // Check if the number meets the specified properties
+        if (propertiesToCheck.isEmpty()) {
+            return true; // No specific properties requested, so any number is valid
+        }
+
+        String strOutput = getPropertiesString(number).toLowerCase();
+
+        return propertiesToCheck.stream().allMatch(strOutput::contains);
+    }
+
+    private static String getPropertiesString(long number) {
+        StringBuilder output = new StringBuilder();
+
+        if (isBuzz(number)) output.append(", buzz");
+        if (isDuck(number)) output.append(", duck");
+        if (isPalindromic(number)) output.append(", palindromic");
+        if (isGapful(number)) output.append(", gapful");
+        if (isSpy(number)) output.append(", spy");
+        if (isSquare(number)) output.append(", square");
+        if (isSunny(number)) output.append(", sunny");
+        if (isEven(number)) output.append(", even");
+        if (isOdd(number)) output.append(", odd");
+        if (isJumping(number)) output.append(", jumping");
+
+        String strOutput = output.substring(2);
+
+        return strOutput;
+    }
+
 
 }
-
 

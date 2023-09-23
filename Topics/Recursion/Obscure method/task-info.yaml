@@ -1,0 +1,25 @@
+type: choice
+is_multiple_choice: false
+options:
+  - text: It calculates <b>b</b> multiplied by <b>(a-1)</b>.
+  - text: It calculates <b>a</b> multiplied by <b>b</b>.
+  - text: It calculates <b>b</b> raised to the <b>(a-1)-th</b> power.
+  - text: It calculates <b>a</b> raised to the <b>b-th</b> power.
+  - text: It calculates <b>b</b> multiplied by <b>a</b>.
+  - text: It calculates <b>b</b> raised to the <b>a-th</b> power.
+files:
+  - name: src/Task.java
+    visible: true
+    text: |
+      // You can experiment here, it won’t be checked
+      
+      public class Task {
+        public static void main(String[] args) {
+          // put your code here
+        }
+      }
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/3112#comment
+status: Solved
+record: -1
+local_check: false

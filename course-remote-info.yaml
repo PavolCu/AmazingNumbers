@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://cogniterra.org/media/attachments/lesson/25552/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: "Wed, 20 Sep 2023 07:28:43 UTC"
+update_date: "Sat, 23 Sep 2023 13:20:22 UTC"
 stages:
   - id: 931
     step: 13198
@@ -25,7 +25,7 @@ stages:
     is_completed: true
   - id: 937
     step: 13204
-    is_completed: false
+    is_completed: true
   - id: 938
     step: 13205
     is_completed: false
@@ -135,10 +135,10 @@ topics:
     - title: Objects
       theory_id: 4727
   6:
-    - title: Final variables
-      theory_id: 7427
     - title: Iterating over arrays
       theory_id: 3602
+    - title: Final variables
+      theory_id: 7427
     - title: Static members
       theory_id: 3534
     - title: Enums in Java
