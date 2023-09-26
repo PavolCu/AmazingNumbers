@@ -11,18 +11,18 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.print("""
-                Welcome to Amazing Numbers!
-                                
-                Supported requests:
-                - enter a natural number to know its properties;
-                - enter two natural numbers to obtain the properties of the list:
-                  * the first parameter represents a starting number;
-                  * the second parameter shows how many consecutive numbers are to be printed;
-                - two natural numbers and properties to search for;
-                - a property preceded by minus must not be present in numbers;
-                - separate the parameters with one space;
-                - enter 0 to exit.
-                """);
+            Welcome to Amazing Numbers!
+                            
+            Supported requests:
+            - enter a natural number to know its properties;
+            - enter two natural numbers to obtain the properties of the list:
+              * the first parameter represents a starting number;
+              * the second parameter shows how many consecutive numbers are to be printed;
+            - two natural numbers and properties to search for;
+            - a property preceded by minus must not be present in numbers;
+            - separate the parameters with one space;
+            - enter 0 to exit.
+            """);
 
         while (true) {
             System.out.print("\nEnter a request: > ");
@@ -48,10 +48,16 @@ public class Main {
             for (int i = 2; i < array.length; i++) {
                 String property = array[i].toLowerCase();
 
-                if (property.startsWith("-")) {
-                    exclusionProperties.add(Property.valueOf(property.substring(1).toUpperCase()));
-                } else {
-                    propertiesToCheck.add(Property.valueOf(property.toUpperCase()));
+                try {
+                    if (property.startsWith("-")) {
+                        exclusionProperties.add(Property.valueOf(property.substring(1).toUpperCase()));
+                    } else {
+                        propertiesToCheck.add(Property.valueOf(property.toUpperCase()));
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.out.println("The property [" + property + "] is wrong.");
+                    System.out.println("Available properties: " + Arrays.toString(Property.values()));
+                    continue; // Continue with the next input
                 }
             }
 
@@ -74,6 +80,15 @@ public class Main {
         }
         System.out.print("Goodbye!");
     }
+
+    private static Property getProperty(String propertyName) {
+        try {
+            return Property.valueOf(propertyName);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
 
     private static boolean arePropertiesWrong(List<Property> propertiesToCheck, List<Property> exclusionProperties) {
         List<Property> properties = Arrays.asList(Property.values());

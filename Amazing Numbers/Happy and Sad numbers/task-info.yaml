@@ -928,8 +928,9 @@ files:
       }
     learner_created: false
 feedback_link: https://hyperskill.org/learn/step/13205#comment
-status: Failed
+status: Solved
 feedback:
-  message: Execution failed
-  time: "Tue, 26 Sep 2023 12:18:42 UTC"
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Tue, 26 Sep 2023 19:31:45 UTC"
 record: -1
