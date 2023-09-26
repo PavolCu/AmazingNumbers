@@ -421,12 +421,12 @@ files:
                   "The second parameter \"{0}\" is wrong. The program should print an error message."
           );
           private static final Checker ERROR_PROPERTY = new RegexChecker(
-                  "The property .+ is wrong",
+                  "The propert(y|ies) .+ wrong",
                   "The request: \"{0}\" has one wrong property. "
                           + "Expected message: \"The property ... is wrong\"."
           );
           private static final Checker ERROR_PROPERTIES = new RegexChecker(
-                  "The properties .+ are wrong",
+                  "The propert(y|ies) .+ wrong",
                   "The request: \"{0}\" has two or more incorrect properties. "
                           + "Expected that error message contains: \"The properties ... are wrong\"."
           );
@@ -928,5 +928,8 @@ files:
       }
     learner_created: false
 feedback_link: https://hyperskill.org/learn/step/13205#comment
-status: Unchecked
+status: Failed
+feedback:
+  message: Execution failed
+  time: "Tue, 26 Sep 2023 12:18:42 UTC"
 record: -1

@@ -13,9 +13,10 @@
 <li>If a user inputs an incorrect property, print the error message and the list of available properties;</li>
 <li>For one number, print the properties of the number;</li>
 <li>For two numbers, print the list of numbers with their properties;</li>
-<li>For two numbers and a property, print the list of numbers and their properties filtered by the indicated property;</li>
+<li>For two numbers (x, y) and a property, start at x and print a list of y numbers with their properties, filtered by the indicated property;</li>
 <li>Once a request is processed, continue execution from step 3.</li>
 </ol>
+<p>The property to search for can be of any case, so make your program case-insensitive in handling it.</p>
 <p>In the current stage, the property names include <code class="java">even</code>, <code class="java">odd</code>, <code class="java">buzz</code>, <code class="java">duck</code>, <code class="java">palindromic</code> , <code class="java">gapful</code>, and <code class="java">spy</code>. The test won't check the order of properties, their indentation, and spaces. You may format numbers as you like. Please, add the information below:</p>
 <h5 id="instructions">Instructions</h5>
 <pre><code class="language-no-highlight">Supported requests:
@@ -66,7 +67,7 @@ Enter a request: 9 7
               14 is buzz, even
               15 is odd
 
-Enter a request: 99 9 spy
+Enter a request: 99 9 SPY
 
              123 is spy, odd
              132 is gapful, spy, even

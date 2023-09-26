@@ -3,15 +3,14 @@ import org.hyperskill.hstest.stage.StageTest;
 import org.hyperskill.hstest.testcase.CheckResult;
 import util.*;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Random;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
-
-import static java.util.stream.IntStream.range;
 
 public final class NumbersTest extends StageTest {
     private static final Random random = new Random();
@@ -39,10 +38,14 @@ public final class NumbersTest extends StageTest {
                             "In this stage, a user can enter two numbers and properties to search for. "
                                     + EXPLAIN))
                     .andThen(new TextChecker(
+                            "property preceded by minus",
+                            "In this stage, a user can a minus in front of the property. "
+                                    + EXPLAIN))
+                    .andThen(new TextChecker(
                             "enter 0 to exit",
                             "Display the instructions on how to exit"));
 
-    private static final Checker ASK_REQUEST = new RegexChecker(
+    private static final Checker ASK_REQUEST = new TextChecker(
             "enter a request",
             "The program should ask a user to enter a request."
     );
@@ -51,16 +54,16 @@ public final class NumbersTest extends StageTest {
             "The first parameter \"{0}\" is wrong. The program should print an error message."
     );
     private static final Checker ERROR_SECOND = new RegexChecker(
-            "The second parameter should be a natural number",
+            "The second (parameter|number) should be a natural number",
             "The second parameter \"{0}\" is wrong. The program should print an error message."
     );
     private static final Checker ERROR_PROPERTY = new RegexChecker(
-            "The property .+ is wrong",
+            "The propert(y|ies) .+ wrong",
             "The request: \"{0}\" has one wrong property. "
                     + "Expected message: \"The property ... is wrong\"."
     );
     private static final Checker ERROR_PROPERTIES = new RegexChecker(
-            "The properties .+ are wrong",
+            "The propert(y|ies) .+ wrong",
             "The request: \"{0}\" has two or more incorrect properties. "
                     + "Expected that error message contains: \"The properties ... are wrong\"."
     );
@@ -102,11 +105,20 @@ public final class NumbersTest extends StageTest {
     private final String[] wrongTwoProperties = new String[]{
             "1 10 boy friend", "40 2 long day", "37 4 hot girl", "67 2 strong drake"
     };
+    private static final String[] ONE_PROPERTY_WRONG = new String[]{
+            "26534 3 buzz evens palindromic",
+            "4384 2 odd -buzz -palindromic shiny gapful",
+            "1 7 hot sunny odd odd -even",
+            "78343 4 sunny -duck mac odd",
+            "3 4 -even -sunny -hot"
+    };
     private final String[] mutuallyExclusive = new String[]{
             // Stage #6 Two properties
             "5 1 odd even", "4 3 even odd", "32 2 sunny square", "3153 2 spy duck", "6 7 duck spy",
             // Stage #7 Several properties
-            "1 2 spy odd sunny even", "7 2 sunny even duck buzz square", "9 5 even spy buzz duck"
+            "1 2 spy odd sunny even", "7 2 sunny even duck buzz square", "9 5 even spy buzz duck",
+            // Stage #8 Properties preceded by minus
+            "6 6 -odd -even", "6 7 odd -odd", "8 1 -even even", "3 5 odd duck buzz -duck sunny"
     };
     // Stage #3
 
@@ -350,36 +362,14 @@ public final class NumbersTest extends StageTest {
 
     // Stage #7
 
-    private String getWrongRequest() {
-        final var start = 1 + random.nextInt(Short.MAX_VALUE);
-        final var count = 1 + random.nextInt(MAX_COUNT);
-
-        final var properties = new ArrayList<String>();
-        final var incorrect = new String[]{
-                "bAY", "Boy", "~~", "...", "242", "&hj", "simple", "evens",
-                "speck", "_odd_", "reverse", "gipful", "buzzz", "drake"
-        };
-        properties.add(incorrect[random.nextInt(incorrect.length)]);
-
-        final var correct = new ArrayList<>(List.of(NumberProperty.values()));
-        Collections.shuffle(correct);
-        range(0, random.nextInt(MAX_PROPERTIES))
-                .mapToObj(correct::get)
-                .map(Enum::name)
-                .forEach(properties::add);
-        Collections.shuffle(properties);
-
-        return start + " " + count + " " + String.join(" ", properties);
-    }
-
-    @DynamicTest(repeat = RANDOM_TESTS, order = 70)
-    CheckResult wrongPropertiesRequestTest() {
+    @DynamicTest(data = "ONE_PROPERTY_WRONG", order = 72)
+    CheckResult oneWrongPropertyTest(String request) {
         return program
                 .start()
                 .check(WELCOME)
                 .check(HELP)
                 .check(ASK_REQUEST)
-                .execute(getWrongRequest())
+                .execute(request)
                 .check(ERROR_PROPERTY)
                 .check(HELP_PROPERTIES)
                 .check(LIST_PROPERTIES)
@@ -398,13 +388,16 @@ public final class NumbersTest extends StageTest {
                 "1 10 even sunny duck buzz gapful",
                 "100000 2 even spy buzz gapful",
                 "100 4 odd spy gapful",
-                "2000 4 even palindromic duck"
+                "2000 4 even palindromic duck",
+                // Stage #8
+                "1 15 odd spy -duck spy buzz",
+                "1 2 jumping happy -spy"
         )
                 .map(Request::new)
                 .toArray(Request[]::new);
     }
 
-    @DynamicTest(data = "getRandomRequests", order = 65)
+    @DynamicTest(data = "getRandomRequests", order = 75)
     CheckResult manyPropertiesTest(Request request) {
         return program
                 .start()
@@ -421,7 +414,8 @@ public final class NumbersTest extends StageTest {
                 .result();
     }
 
-    // feedback = "The program should check for mutually exclusive properties"
+    // Stage #8 If a property is preceded by a minus, this property should not be present in a number
+
     @DynamicTest(data = "mutuallyExclusive", order = 80)
     CheckResult mutuallyExclusivePropertiesTest(String mutuallyExclusive) {
         return program
@@ -436,6 +430,26 @@ public final class NumbersTest extends StageTest {
                 .execute(0)
                 .check(FINISHED)
                 .result();
+    }
+
+    // The test generates and checks request "1 15 -PROPERTY" for all properties
+
+    @DynamicTest(order = 85)
+    CheckResult allMinusPropertiesTest() {
+        program.start().check(WELCOME).check(HELP);
+
+        Arrays.stream(NumberProperty.values())
+                .map(Enum::name)
+                .map("1 15 -"::concat)
+                .map(Request::new)
+                .peek(program.check(ASK_REQUEST)::execute)
+                .forEach(request -> program
+                        .check(request.getLinesChecker())
+                        .check(new ListChecker(request))
+                        .check(RUNNING)
+                );
+
+        return program.execute(0).check(FINISHED).result();
     }
 
 }

@@ -5,6 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
+    public enum Property {
+        BUZZ, DUCK, PALINDROMIC, GAPFUL, SPY, SQUARE, SUNNY, EVEN, ODD, JUMPING, HAPPY, SAD
+    }
+
     public static void main(String[] args) {
         System.out.print("""
                 Welcome to Amazing Numbers!
@@ -15,6 +19,7 @@ public class Main {
                   * the first parameter represents a starting number;
                   * the second parameter shows how many consecutive numbers are to be printed;
                 - two natural numbers and properties to search for;
+                - a property preceded by minus must not be present in numbers;
                 - separate the parameters with one space;
                 - enter 0 to exit.
                 """);
@@ -37,16 +42,24 @@ public class Main {
                 continue;
             }
 
-            List<String> propertiesToCheck = new ArrayList<>();
+            List<Property> propertiesToCheck = new ArrayList<>();
+            List<Property> exclusionProperties = new ArrayList<>();
+
             for (int i = 2; i < array.length; i++) {
-                propertiesToCheck.add(array[i].toLowerCase());
+                String property = array[i].toLowerCase();
+
+                if (property.startsWith("-")) {
+                    exclusionProperties.add(Property.valueOf(property.substring(1).toUpperCase()));
+                } else {
+                    propertiesToCheck.add(Property.valueOf(property.toUpperCase()));
+                }
             }
 
-            if (arePropertiesWrong(propertiesToCheck)) continue;
+            if (arePropertiesWrong(propertiesToCheck, exclusionProperties)) continue;
 
             // Find the nearest number that meets the properties
             long currentNumber = first;
-            while (!meetsProperties(currentNumber, propertiesToCheck)) {
+            while (!meetsProperties(currentNumber, propertiesToCheck, exclusionProperties)) {
                 currentNumber++;
             }
 
@@ -55,40 +68,60 @@ public class Main {
                     printList(number);
                     outputCount++;
                 } else {
-                    outputCount += printRow(number, propertiesToCheck);
+                    outputCount += printRow(number, propertiesToCheck, exclusionProperties);
                 }
             }
         }
         System.out.print("Goodbye!");
     }
 
-    private static boolean arePropertiesWrong(List<String> propertiesToCheck) {
-        List<String> properties = Arrays.asList("buzz", "duck", "palindromic", "gapful", "spy", "square", "sunny", "even", "odd", "jumping");
+    private static boolean arePropertiesWrong(List<Property> propertiesToCheck, List<Property> exclusionProperties) {
+        List<Property> properties = Arrays.asList(Property.values());
 
-        List<String> wrong = new ArrayList<>();
+        List<Property> wrong = new ArrayList<>();
 
-        for (String property : propertiesToCheck) {
-            if (!("".equals(property) || properties.contains(property))) {
+        for (Property property : propertiesToCheck) {
+            if (!properties.contains(property)) {
                 wrong.add(property);
             }
         }
 
-        if (wrong.size() != 0) {
+        if (!wrong.isEmpty()) {
             boolean isMultiple = wrong.size() > 1;
             System.out.printf("The propert%s %s %s wrong.\n", isMultiple ? "ies" : "y", wrong.toString().toUpperCase(), isMultiple ? "are" : "is");
-            System.out.printf("Available properties: %s\n", properties.toString().toUpperCase());
+            System.out.printf("Available properties: %s\n", Arrays.toString(Property.values()));
             return true;
         }
 
-        if (propertiesToCheck.contains("even") && propertiesToCheck.contains("odd") ||
-                propertiesToCheck.contains("square") && propertiesToCheck.contains("sunny") ||
-                propertiesToCheck.contains("duck") && propertiesToCheck.contains("spy")) {
-            System.out.printf("The request contains mutually exclusive properties: %s\n", propertiesToCheck.toString().toUpperCase());
+        if ((propertiesToCheck.contains(Property.EVEN) && propertiesToCheck.contains(Property.ODD)) ||
+                (propertiesToCheck.contains(Property.SQUARE) && propertiesToCheck.contains(Property.SUNNY)) ||
+                (propertiesToCheck.contains(Property.DUCK) && propertiesToCheck.contains(Property.SPY)) ||
+                (propertiesToCheck.contains(Property.HAPPY) && propertiesToCheck.contains(Property.SAD))) {
+            System.out.printf("The request contains mutually exclusive properties: %s, \n", propertiesToCheck.toString());
             System.out.println("There are no numbers with these properties.");
             return true;
         }
+
+        // Check for mutually exclusive exclusion properties
+        for (Property exclusionProperty : exclusionProperties) {
+            if (propertiesToCheck.contains(exclusionProperty)) {
+                System.out.printf("The request contains mutually exclusive properties: [%s, -%s]\n", exclusionProperty, exclusionProperty);
+                System.out.println("There are no numbers with these properties.");
+                return true;
+            }
+        }
+
+        // Check for mutually exclusive properties: -ODD and -EVEN
+        if (exclusionProperties.contains(Property.ODD) && exclusionProperties.contains(Property.EVEN)) {
+            System.out.println("The request contains mutually exclusive properties: [-ODD, -EVEN]");
+            System.out.println("There are no numbers with these properties.");
+            return true;
+        }
+
         return false;
     }
+
+
 
     private static void printList(long number) {
         System.out.println("Properties of " + number);
@@ -102,9 +135,11 @@ public class Main {
         System.out.println("        even: " + isEven(number));
         System.out.println("         odd: " + isOdd(number));
         System.out.println("     jumping: " + isJumping(number));
+        System.out.println("       happy: " + isHappy(number));
+        System.out.println("         sad: " + isSad(number));
     }
 
-    private static int printRow(Long number, List<String> propertiesToCheck) {
+    private static int printRow(Long number, List<Property> propertiesToCheck, List<Property> exclusionProperties) {
         StringBuilder output = new StringBuilder();
 
         if (isBuzz(number)) output.append(", buzz");
@@ -117,15 +152,25 @@ public class Main {
         if (isEven(number)) output.append(", even");
         if (isOdd(number)) output.append(", odd");
         if (isJumping(number)) output.append(", jumping");
+        if (isHappy(number)) output.append(", happy");
+        if (isSad(number)) output.append(", sad");
 
         String strOutput = output.substring(2);
 
-        if (propertiesToCheck.stream().allMatch(strOutput::contains)) {
-            System.out.printf("%d is %s\n", number, strOutput);
+        for (Property exclusionProperty : exclusionProperties) {
+            if (strOutput.contains(exclusionProperty.toString().toLowerCase())) {
+                return 0; // Do not print this number
+            }
+        }
+
+        if (propertiesToCheck.stream().allMatch(prop -> strOutput.contains(prop.toString().toLowerCase()))) {
+            System.out.printf("%15d is %s\n", number, strOutput);
             return 1;
         }
         return 0;
     }
+
+
 
     private static boolean isBuzz(long number) {
         return number % 7 == 0 || Long.toString(number).endsWith("7");
@@ -204,16 +249,49 @@ public class Main {
         return true; // It's a Jumping number
     }
 
-    private static boolean meetsProperties(long number, List<String> propertiesToCheck) {
-        // Check if the number meets the specified properties
-        if (propertiesToCheck.isEmpty()) {
-            return true; // No specific properties requested, so any number is valid
+    private static boolean isHappy(long number) {
+        int count = 0;
+        while (number != 1 && count < 20) {
+            long sum = 0;
+            while (number > 0) {
+                long digit = number % 10;
+                sum += digit * digit;
+                number /= 10;
+            }
+            number = sum;
+            count++;
         }
+        return number == 1;
+    }
 
+    private static boolean isSad(long number) {
+        int count = 0;
+        while (number != 4 && count < 20) {
+            long sum = 0;
+            while (number > 0) {
+                long digit = number % 10;
+                sum += digit * digit;
+                number /= 10;
+            }
+            number = sum;
+            count++;
+        }
+        return number == 4;
+    }
+
+    private static boolean meetsProperties(long number, List<Property> propertiesToCheck, List<Property> exclusionProperties) {
         String strOutput = getPropertiesString(number).toLowerCase();
 
-        return propertiesToCheck.stream().allMatch(strOutput::contains);
+        for (Property exclusionProperty : exclusionProperties) {
+            if (strOutput.contains(exclusionProperty.toString().toLowerCase())) {
+                return false; // This number has an exclusion property
+            }
+        }
+
+        return propertiesToCheck.stream().allMatch(prop -> strOutput.contains(prop.toString().toLowerCase()));
     }
+
+
 
     private static String getPropertiesString(long number) {
         StringBuilder output = new StringBuilder();
@@ -228,12 +306,12 @@ public class Main {
         if (isEven(number)) output.append(", even");
         if (isOdd(number)) output.append(", odd");
         if (isJumping(number)) output.append(", jumping");
+        if (isHappy(number)) output.append(" , happy");
+        if (isSad(number)) output.append(" , sad");
 
         String strOutput = output.substring(2);
 
         return strOutput;
     }
-
-
 }
 
