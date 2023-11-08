@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://cogniterra.org/media/attachments/lesson/25552/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: "Tue, 26 Sep 2023 17:33:22 UTC"
+update_date: "Wed, 08 Nov 2023 20:35:11 UTC"
 stages:
   - id: 931
     step: 13198
@@ -35,9 +35,9 @@ topics:
       theory_id: 6865
     - title: Introduction to Java
       theory_id: 3500
-    - title: Basic literals
+    - title: "Basic literals: numbers, strings and characters"
       theory_id: 3522
-    - title: Overview of the basic program
+    - title: Writing first program
       theory_id: 3521
     - title: Printing data
       theory_id: 3749
@@ -45,7 +45,7 @@ topics:
       theory_id: 3518
     - title: Comments
       theory_id: 3520
-    - title: Scanning the input
+    - title: Reading user's input with Scanner
       theory_id: 9055
     - title: Coding style conventions
       theory_id: 12411
@@ -55,34 +55,34 @@ topics:
       theory_id: 3519
     - title: Integer types and operations
       theory_id: 3565
-    - title: Boolean and logical operations
+    - title: Boolean type and operations. True and false
       theory_id: 3516
-    - title: Relational operators
+    - title: Comparing values. Relational operators
       theory_id: 3512
     - title: Conditional statement
       theory_id: 3503
-    - title: Ternary operator
+    - title: One-line condition with ternary operator
       theory_id: 3506
-    - title: Sizes and ranges
+    - title: Data types and their sizes
       theory_id: 3532
   2:
     - title: Increment and decrement
       theory_id: 5008
-    - title: The while and do-while loops
+    - title: While and do-while loops
       theory_id: 3498
-    - title: The for-loop
+    - title: For-loop
       theory_id: 3505
-    - title: Branching statements
+    - title: Break and continue. Branching
       theory_id: 3507
-    - title: Switch statement
+    - title: "Multiple conditions: switch"
       theory_id: 3504
     - title: Type casting
       theory_id: 3510
-    - title: Calling a method
+    - title: Calling methods
       theory_id: 10973
-    - title: Declaring a method
+    - title: Declaring methods
       theory_id: 10982
-    - title: The main method
+    - title: Method "main"
       theory_id: 3489
     - title: Functional decomposition
       theory_id: 10570
@@ -102,17 +102,17 @@ topics:
       theory_id: 3739
     - title: Arrays as parameters
       theory_id: 3594
-    - title: What is an exception
+    - title: First glance at exceptions
       theory_id: 3497
-    - title: Introduction to OOP
+    - title: What is object-oriented programming
       theory_id: 3614
-    - title: Package
+    - title: Grouping classes with packages
       theory_id: 3621
     - title: Hierarchy of exceptions
       theory_id: 3570
     - title: StringBuilder
       theory_id: 3812
-    - title: What is a bug
+    - title: What are bugs
       theory_id: 5504
     - title: Introduction to logging
       theory_id: 5538
@@ -122,7 +122,7 @@ topics:
       theory_id: 3618
     - title: Instance methods
       theory_id: 3495
-    - title: Constructor
+    - title: Initializing new instances. Constructor
       theory_id: 3535
     - title: Access modifiers
       theory_id: 3589
@@ -137,7 +137,7 @@ topics:
   6:
     - title: Iterating over arrays
       theory_id: 3602
-    - title: Final variables
+    - title: Constants. Final variables
       theory_id: 7427
     - title: Static members
       theory_id: 3534
