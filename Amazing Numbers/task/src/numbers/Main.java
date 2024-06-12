@@ -98,14 +98,6 @@ public class Main {
         System.out.print("Goodbye!");
     }
 
-    /*private static Property getProperty(String propertyName) {
-        try {
-            return Property.valueOf(propertyName);
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
-    }*/
-
 
     private static boolean arePropertiesWrong(List<Property> propertiesToCheck, List<Property> exclusionProperties) {
         List<Property> properties = Arrays.asList(Property.values());
@@ -172,16 +164,16 @@ public class Main {
     }
 
     private static int printRow(Long number, List<Property> propertiesToCheck, List<Property> exclusionProperties) {
-        String strOutput = getPropertiesString(number);
+        String propertiesString = getPropertiesString(number).toLowerCase();
 
         for (Property exclusionProperty : exclusionProperties) {
-            if (strOutput.contains(exclusionProperty.toString().toLowerCase())) {
+            if (propertiesString.contains(exclusionProperty.toString().toLowerCase())) {
                 return 0; // Do not print this number
             }
         }
 
-        if (propertiesToCheck.stream().allMatch(prop -> strOutput.contains(prop.toString().toLowerCase()))) {
-            System.out.printf("%15d is %s\n", number, strOutput);
+        if (propertiesToCheck.stream().allMatch(prop -> propertiesString.contains(prop.toString().toLowerCase()))) {
+            System.out.printf("%15d is %s\n", number, propertiesString);
             return 1;
         }
         return 0;
@@ -320,9 +312,7 @@ public class Main {
         if (isHappy(number)) output.append(" , happy");
         if (isSad(number)) output.append(" , sad");
 
-        String strOutput = output.substring(2);
-
-        return strOutput;
+        return output.substring(2);
     }
 }
 
