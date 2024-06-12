@@ -129,7 +129,7 @@ public class Main {
                 (propertiesToCheck.contains(Property.SQUARE) && propertiesToCheck.contains(Property.SUNNY)) ||
                 (propertiesToCheck.contains(Property.DUCK) && propertiesToCheck.contains(Property.SPY)) ||
                 (propertiesToCheck.contains(Property.HAPPY) && propertiesToCheck.contains(Property.SAD))) {
-            System.out.printf("The request contains mutually exclusive properties: %s, \n", propertiesToCheck.toString());
+            System.out.printf("The request contains mutually exclusive properties: %s, \n", propertiesToCheck);
             System.out.println("There are no numbers with these properties.");
             return true;
         }
