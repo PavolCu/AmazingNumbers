@@ -4,11 +4,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The Main class contains the main method that reads user input and prints the properties of numbers.
+ * The program supports the following requests:
+ * - enter a natural number to know its properties;
+ * - enter two natural numbers to obtain the properties of the list:
+ *   * the first parameter represents a starting number;
+ *   * the second parameter shows how many consecutive numbers are to be printed;
+ * - two natural numbers and properties to search for;
+ * - a property preceded by minus must not be present in numbers;
+ * - separate the parameters with one space;
+ * - enter 0 to exit.
+ */
+
 public class Main {
     public enum Property {
         BUZZ, DUCK, PALINDROMIC, GAPFUL, SPY, SQUARE, SUNNY, EVEN, ODD, JUMPING, HAPPY, SAD
     }
 
+    /**
+     * The main method reads user input and prints the properties of numbers.
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         System.out.print("""
             Welcome to Amazing Numbers!
@@ -57,7 +74,7 @@ public class Main {
                 } catch (IllegalArgumentException e) {
                     System.out.println("The property [" + property + "] is wrong.");
                     System.out.println("Available properties: " + Arrays.toString(Property.values()));
-                    continue; // Continue with the next input
+
                 }
             }
 
@@ -81,13 +98,13 @@ public class Main {
         System.out.print("Goodbye!");
     }
 
-    private static Property getProperty(String propertyName) {
+    /*private static Property getProperty(String propertyName) {
         try {
             return Property.valueOf(propertyName);
         } catch (IllegalArgumentException e) {
             return null;
         }
-    }
+    }*/
 
 
     private static boolean arePropertiesWrong(List<Property> propertiesToCheck, List<Property> exclusionProperties) {
@@ -155,22 +172,7 @@ public class Main {
     }
 
     private static int printRow(Long number, List<Property> propertiesToCheck, List<Property> exclusionProperties) {
-        StringBuilder output = new StringBuilder();
-
-        if (isBuzz(number)) output.append(", buzz");
-        if (isDuck(number)) output.append(", duck");
-        if (isPalindromic(number)) output.append(", palindromic");
-        if (isGapful(number)) output.append(", gapful");
-        if (isSpy(number)) output.append(", spy");
-        if (isSquare(number)) output.append(", square");
-        if (isSunny(number)) output.append(", sunny");
-        if (isEven(number)) output.append(", even");
-        if (isOdd(number)) output.append(", odd");
-        if (isJumping(number)) output.append(", jumping");
-        if (isHappy(number)) output.append(", happy");
-        if (isSad(number)) output.append(", sad");
-
-        String strOutput = output.substring(2);
+        String strOutput = getPropertiesString(number);
 
         for (Property exclusionProperty : exclusionProperties) {
             if (strOutput.contains(exclusionProperty.toString().toLowerCase())) {
@@ -264,9 +266,9 @@ public class Main {
         return true; // It's a Jumping number
     }
 
-    private static boolean isHappy(long number) {
+    private static boolean isNumber(long number, int target) {
         int count = 0;
-        while (number != 1 && count < 20) {
+        while (number != target && count < 20) {
             long sum = 0;
             while (number > 0) {
                 long digit = number % 10;
@@ -276,24 +278,16 @@ public class Main {
             number = sum;
             count++;
         }
-        return number == 1;
+        return number == target;
+    }
+
+    private static boolean isHappy(long number) {
+        return isNumber(number, 1);
     }
 
     private static boolean isSad(long number) {
-        int count = 0;
-        while (number != 4 && count < 20) {
-            long sum = 0;
-            while (number > 0) {
-                long digit = number % 10;
-                sum += digit * digit;
-                number /= 10;
-            }
-            number = sum;
-            count++;
-        }
-        return number == 4;
+        return isNumber(number, 4);
     }
-
     private static boolean meetsProperties(long number, List<Property> propertiesToCheck, List<Property> exclusionProperties) {
         String strOutput = getPropertiesString(number).toLowerCase();
 
@@ -307,7 +301,9 @@ public class Main {
     }
 
 
-
+    /**
+     * Returns a string containing the properties of a number.
+     */
     private static String getPropertiesString(long number) {
         StringBuilder output = new StringBuilder();
 

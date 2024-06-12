@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://cogniterra.org/media/attachments/lesson/25552/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: "Wed, 08 Nov 2023 20:35:11 UTC"
+update_date: "Wed, 12 Jun 2024 16:09:50 UTC"
 stages:
   - id: 931
     step: 13198
@@ -34,7 +34,7 @@ topics:
     - title: Units of information
       theory_id: 6865
     - title: Introduction to Java
-      theory_id: 3500
+      theory_id: 38627
     - title: "Basic literals: numbers, strings and characters"
       theory_id: 3522
     - title: Writing first program
@@ -102,16 +102,14 @@ topics:
       theory_id: 3739
     - title: Arrays as parameters
       theory_id: 3594
-    - title: First glance at exceptions
-      theory_id: 3497
-    - title: What is object-oriented programming
-      theory_id: 3614
-    - title: Grouping classes with packages
-      theory_id: 3621
-    - title: Hierarchy of exceptions
-      theory_id: 3570
     - title: StringBuilder
       theory_id: 3812
+    - title: First glance at exceptions
+      theory_id: 3497
+    - title: Hierarchy of exceptions
+      theory_id: 3570
+    - title: What is object-oriented programming
+      theory_id: 3614
     - title: What are bugs
       theory_id: 5504
     - title: Introduction to logging
@@ -120,6 +118,8 @@ topics:
       theory_id: 13775
     - title: Defining classes
       theory_id: 3618
+    - title: Grouping classes with packages
+      theory_id: 3621
     - title: Instance methods
       theory_id: 3495
     - title: Initializing new instances. Constructor
@@ -130,18 +130,18 @@ topics:
       theory_id: 3599
     - title: Inheritance
       theory_id: 3583
-    - title: The keyword super
+    - title: Keyword "super"
       theory_id: 3588
-    - title: Objects
+    - title: Objects and their properties
       theory_id: 4727
   6:
-    - title: Iterating over arrays
-      theory_id: 3602
     - title: Constants. Final variables
       theory_id: 7427
+    - title: Iterating over arrays
+      theory_id: 3602
     - title: Static members
       theory_id: 3534
-    - title: Enums in Java
+    - title: Combining constants with enum
       theory_id: 11514
     - title: Fields and methods in enum
       theory_id: 11523

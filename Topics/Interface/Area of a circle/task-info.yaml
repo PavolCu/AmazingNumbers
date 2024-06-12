@@ -3,19 +3,6 @@ files:
   - name: src/Main.java
     visible: true
     highlight_level: NONE
-    text: |-
-      class Circle {
-          private double radius;
-      
-          public Circle(double radius) {
-              this.radius = radius;
-          }
-      }
-      
-      // do not change the interface
-      interface Measurable {
-          double area();
-      }
     learner_created: false
 feedback_link: https://hyperskill.org/learn/step/11362#comment
 status: Solved
