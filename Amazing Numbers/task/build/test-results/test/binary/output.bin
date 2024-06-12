@@ -27,7 +27,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-Enter a request: > > -65
+Enter a request: > > -81
 
 8The first parameter should be a natural number or zero.
 
@@ -46,7 +46,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-Enter a request: > > -62
+Enter a request: > > -71
 
 8The first parameter should be a natural number or zero.
 
@@ -65,7 +65,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-Enter a request: > > -83
+Enter a request: > > -90
 
 8The first parameter should be a natural number or zero.
 
@@ -84,7 +84,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-Enter a request: > > -78
+Enter a request: > > -61
 
 8The first parameter should be a natural number or zero.
 
@@ -103,7 +103,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-Enter a request: > > -1
+Enter a request: > > -112
 
 8The first parameter should be a natural number or zero.
 
@@ -122,7 +122,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-!Enter a request: > > 3002 -21942
+"Enter a request: > > 31462 -21854
 
 9The second parameter should be a natural number or zero.
 
@@ -141,7 +141,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
- Enter a request: > > 924 -30761
+"Enter a request: > > 20374 -25544
 
 9The second parameter should be a natural number or zero.
 
@@ -160,7 +160,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-!Enter a request: > > 2085 -16118
+"Enter a request: > > 16863 -10105
 
 9The second parameter should be a natural number or zero.
 
@@ -179,7 +179,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-"Enter a request: > > 11738 -12953
+"Enter a request: > > 23698 -31432
 
 9The second parameter should be a natural number or zero.
 
@@ -198,7 +198,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-"Enter a request: > > 31428 -11582
+"Enter a request: > > 20013 -19567
 
 9The second parameter should be a natural number or zero.
 
@@ -217,7 +217,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-!Enter a request: > > 1955 -29097
+"Enter a request: > > 16215 -12090
 
 9The second parameter should be a natural number or zero.
 
@@ -236,7 +236,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-"Enter a request: > > 17562 -15881
+"Enter a request: > > 19071 -28608
 
 9The second parameter should be a natural number or zero.
 
@@ -255,7 +255,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-!Enter a request: > > 1727 -10720
+"Enter a request: > > 14447 -17962
 
 9The second parameter should be a natural number or zero.
 
@@ -274,7 +274,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-"Enter a request: > > 22483 -19773
+!Enter a request: > > 23004 -5784
 
 9The second parameter should be a natural number or zero.
 
@@ -293,7 +293,7 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
- Enter a request: > > 9988 -1456
+!Enter a request: > > 1404 -11795
 
 9The second parameter should be a natural number or zero.
 
@@ -536,9 +536,9 @@
        happy: false
          sad: true
 
-)Enter a request: > > 5883599476912882061
+)Enter a request: > > 7818098608001686185
 
-"Properties of 5883599476912882061
+"Properties of 7818098608001686185
         buzz: false
         duck: true
  palindromic: false
@@ -552,11 +552,11 @@
        happy: false
          sad: true
 
-(Enter a request: > > 278691395196884599
+)Enter a request: > > 6911359343032984259
 
-!Properties of 278691395196884599
-        buzz: false
-        duck: false
+"Properties of 6911359343032984259
+        buzz: true
+        duck: true
  palindromic: false
       gapful: false
          spy: false
@@ -568,25 +568,25 @@
        happy: false
          sad: true
 
-)Enter a request: > > 4498532829664233734
+)Enter a request: > > 4032595866023950547
 
-"Properties of 4498532829664233734
-        buzz: false
-        duck: false
+"Properties of 4032595866023950547
+        buzz: true
+        duck: true
  palindromic: false
       gapful: false
          spy: false
       square: false
        sunny: false
-        even: true
-         odd: false
+        even: false
+         odd: true
      jumping: false
        happy: false
          sad: true
 
-)Enter a request: > > 8550984064469628266
+)Enter a request: > > 4279197977055912012
 
-"Properties of 8550984064469628266
+"Properties of 4279197977055912012
         buzz: false
         duck: true
  palindromic: false
@@ -600,9 +600,9 @@
        happy: false
          sad: true
 
-)Enter a request: > > 3020674368370987774
+)Enter a request: > > 3068016126210527274
 
-"Properties of 3020674368370987774
+"Properties of 3068016126210527274
         buzz: false
         duck: true
  palindromic: false
@@ -616,73 +616,73 @@
        happy: false
          sad: true
 
-)Enter a request: > > 8241323576754558722
+(Enter a request: > > 789805034462465851
 
-"Properties of 8241323576754558722
+!Properties of 789805034462465851
         buzz: false
-        duck: false
+        duck: true
  palindromic: false
       gapful: false
          spy: false
       square: false
        sunny: false
-        even: true
-         odd: false
+        even: false
+         odd: true
+     jumping: false
+       happy: false
+         sad: true
+
+)Enter a request: > > 2252391636526401915
+
+"Properties of 2252391636526401915
+        buzz: false
+        duck: true
+ palindromic: false
+      gapful: false
+         spy: false
+      square: false
+       sunny: false
+        even: false
+         odd: true
+     jumping: false
+       happy: false
+         sad: true
+
+)Enter a request: > > 3134482705857114281
+
+"Properties of 3134482705857114281
+        buzz: false
+        duck: true
+ palindromic: false
+      gapful: false
+         spy: false
+      square: false
+       sunny: false
+        even: false
+         odd: true
+     jumping: false
+       happy: false
+         sad: true
+
+)Enter a request: > > 2901100923613872351
+
+"Properties of 2901100923613872351
+        buzz: false
+        duck: true
+ palindromic: false
+      gapful: false
+         spy: false
+      square: false
+       sunny: false
+        even: false
+         odd: true
      jumping: false
        happy: true
          sad: false
 
-)Enter a request: > > 7609936657205859374
+)Enter a request: > > 8071459957782722952
 
-"Properties of 7609936657205859374
-        buzz: false
-        duck: true
- palindromic: false
-      gapful: false
-         spy: false
-      square: false
-       sunny: false
-        even: true
-         odd: false
-     jumping: false
-       happy: false
-         sad: true
-
-)Enter a request: > > 4571833572254554730
-
-"Properties of 4571833572254554730
-        buzz: false
-        duck: true
- palindromic: false
-      gapful: false
-         spy: false
-      square: false
-       sunny: false
-        even: true
-         odd: false
-     jumping: false
-       happy: false
-         sad: true
-
-)Enter a request: > > 4072700660349991973
-
-"Properties of 4072700660349991973
-        buzz: false
-        duck: true
- palindromic: false
-      gapful: false
-         spy: false
-      square: false
-       sunny: false
-        even: false
-         odd: true
-     jumping: false
-       happy: false
-         sad: true
-
-)Enter a request: > > 8621056548016807390
-
-"Properties of 8621056548016807390
+"Properties of 8071459957782722952
         buzz: false
         duck: true
  palindromic: false
@@ -744,10 +744,20 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-+Enter a request: > > 6836347953995080117 2
+,Enter a request: > > 1771224551765378600 12
 
--6836347953995080117 is buzz, duck, odd , sad
-(6836347953995080118 is duck, even , sad
+01771224551765378600 is duck, gapful, even , sad
+'1771224551765378601 is duck, odd , sad
+(1771224551765378602 is duck, even , sad
+'1771224551765378603 is duck, odd , sad
+(1771224551765378604 is duck, even , sad
+-1771224551765378605 is buzz, duck, odd , sad
+(1771224551765378606 is duck, even , sad
+-1771224551765378607 is buzz, duck, odd , sad
+(1771224551765378608 is duck, even , sad
+'1771224551765378609 is duck, odd , sad
+01771224551765378610 is duck, gapful, even , sad
+)1771224551765378611 is gapful, odd , sad
 
 Enter a request: > > 0
 [1;31m
@@ -764,11 +774,15 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-+Enter a request: > > 6363965195467983127 3
++Enter a request: > > 3726488836762923004 7
 
-'6363965195467983127 is buzz, odd , sad
-"6363965195467983128 is even , sad
-#6363965195467983129 is odd , happy
+(3726488836762923004 is duck, even , sad
+'3726488836762923005 is duck, odd , sad
+(3726488836762923006 is duck, even , sad
+-3726488836762923007 is buzz, duck, odd , sad
+(3726488836762923008 is duck, even , sad
+'3726488836762923009 is duck, odd , sad
+(3726488836762923010 is duck, even , sad
 
 Enter a request: > > 0
 [1;31m
@@ -785,22 +799,14 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-,Enter a request: > > 6001809645909439912 14
++Enter a request: > > 8911032928967622728 6
 
-(6001809645909439912 is duck, even , sad
-'6001809645909439913 is duck, odd , sad
-(6001809645909439914 is duck, even , sad
--6001809645909439915 is buzz, duck, odd , sad
-(6001809645909439916 is duck, even , sad
-56001809645909439917 is buzz, duck, gapful, odd , sad
-*6001809645909439918 is duck, even , happy
-'6001809645909439919 is duck, odd , sad
-06001809645909439920 is duck, gapful, even , sad
-'6001809645909439921 is duck, odd , sad
-.6001809645909439922 is buzz, duck, even , sad
-'6001809645909439923 is duck, odd , sad
-(6001809645909439924 is duck, even , sad
-)6001809645909439925 is duck, odd , happy
+08911032928967622728 is duck, gapful, even , sad
+)8911032928967622729 is duck, odd , happy
+(8911032928967622730 is duck, even , sad
+'8911032928967622731 is duck, odd , sad
+(8911032928967622732 is duck, even , sad
+-8911032928967622733 is buzz, duck, odd , sad
 
 Enter a request: > > 0
 [1;31m
@@ -817,22 +823,19 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-,Enter a request: > > 7188637444762923559 14
+,Enter a request: > > 5600490666152306140 11
 
-!7188637444762923559 is odd , sad
-(7188637444762923560 is duck, even , sad
-#7188637444762923561 is odd , happy
-(7188637444762923562 is buzz, even , sad
-!7188637444762923563 is odd , sad
-"7188637444762923564 is even , sad
-!7188637444762923565 is odd , sad
-"7188637444762923566 is even , sad
-'7188637444762923567 is buzz, odd , sad
-"7188637444762923568 is even , sad
-'7188637444762923569 is buzz, odd , sad
-(7188637444762923570 is duck, even , sad
-!7188637444762923571 is odd , sad
-"7188637444762923572 is even , sad
+(5600490666152306140 is duck, even , sad
+-5600490666152306141 is buzz, duck, odd , sad
+*5600490666152306142 is duck, even , happy
+)5600490666152306143 is duck, odd , happy
+(5600490666152306144 is duck, even , sad
+)5600490666152306145 is duck, odd , happy
+(5600490666152306146 is duck, even , sad
+-5600490666152306147 is buzz, duck, odd , sad
+.5600490666152306148 is buzz, duck, even , sad
+'5600490666152306149 is duck, odd , sad
+25600490666152306150 is duck, gapful, even , happy
 
 Enter a request: > > 0
 [1;31m
@@ -849,26 +852,11 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-,Enter a request: > > 1376462932431020237 18
++Enter a request: > > 3082533188539105161 3
 
--1376462932431020237 is buzz, duck, odd , sad
-.1376462932431020238 is buzz, duck, even , sad
-'1376462932431020239 is duck, odd , sad
-01376462932431020240 is duck, gapful, even , sad
-'1376462932431020241 is duck, odd , sad
-(1376462932431020242 is duck, even , sad
-'1376462932431020243 is duck, odd , sad
-(1376462932431020244 is duck, even , sad
-/1376462932431020245 is buzz, duck, odd , happy
-*1376462932431020246 is duck, even , happy
--1376462932431020247 is buzz, duck, odd , sad
-(1376462932431020248 is duck, even , sad
-)1376462932431020249 is duck, odd , happy
-01376462932431020250 is duck, gapful, even , sad
-'1376462932431020251 is duck, odd , sad
-.1376462932431020252 is buzz, duck, even , sad
-)1376462932431020253 is duck, odd , happy
-*1376462932431020254 is duck, even , happy
+-3082533188539105161 is buzz, duck, odd , sad
+(3082533188539105162 is duck, even , sad
+'3082533188539105163 is duck, odd , sad
 
 Enter a request: > > 0
 [1;31m
@@ -885,9 +873,9 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-+Enter a request: > > 7280576000383510040 1
++Enter a request: > > 2596667073010999968 1
 
-(7280576000383510040 is duck, even , sad
+62596667073010999968 is buzz, duck, gapful, even , sad
 
 Enter a request: > > 0
 [1;31m
@@ -904,25 +892,18 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-,Enter a request: > > 4231809605617016316 17
+,Enter a request: > > 5851876431761205154 10
 
-(4231809605617016316 is duck, even , sad
--4231809605617016317 is buzz, duck, odd , sad
-.4231809605617016318 is buzz, duck, even , sad
-'4231809605617016319 is duck, odd , sad
-04231809605617016320 is duck, gapful, even , sad
-'4231809605617016321 is duck, odd , sad
-*4231809605617016322 is duck, even , happy
-'4231809605617016323 is duck, odd , sad
-04231809605617016324 is duck, gapful, even , sad
-/4231809605617016325 is buzz, duck, odd , happy
-(4231809605617016326 is duck, even , sad
--4231809605617016327 is buzz, duck, odd , sad
-(4231809605617016328 is duck, even , sad
-'4231809605617016329 is duck, odd , sad
-(4231809605617016330 is duck, even , sad
-'4231809605617016331 is duck, odd , sad
-.4231809605617016332 is buzz, duck, even , sad
+(5851876431761205154 is duck, even , sad
+'5851876431761205155 is duck, odd , sad
+(5851876431761205156 is duck, even , sad
+-5851876431761205157 is buzz, duck, odd , sad
+(5851876431761205158 is duck, even , sad
+'5851876431761205159 is duck, odd , sad
+.5851876431761205160 is buzz, duck, even , sad
+'5851876431761205161 is duck, odd , sad
+*5851876431761205162 is duck, even , happy
+'5851876431761205163 is duck, odd , sad
 
 Enter a request: > > 0
 [1;31m
@@ -939,9 +920,25 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-+Enter a request: > > 4671457767540190360 1
+,Enter a request: > > 3013932569872394441 17
 
-04671457767540190360 is duck, gapful, even , sad
+'3013932569872394441 is duck, odd , sad
+(3013932569872394442 is duck, even , sad
+-3013932569872394443 is buzz, duck, odd , sad
+(3013932569872394444 is duck, even , sad
+'3013932569872394445 is duck, odd , sad
+(3013932569872394446 is duck, even , sad
+-3013932569872394447 is buzz, duck, odd , sad
+(3013932569872394448 is duck, even , sad
+'3013932569872394449 is duck, odd , sad
+.3013932569872394450 is buzz, duck, even , sad
+'3013932569872394451 is duck, odd , sad
+(3013932569872394452 is duck, even , sad
+'3013932569872394453 is duck, odd , sad
+(3013932569872394454 is duck, even , sad
+'3013932569872394455 is duck, odd , sad
+(3013932569872394456 is duck, even , sad
+-3013932569872394457 is buzz, duck, odd , sad
 
 Enter a request: > > 0
 [1;31m
@@ -958,16 +955,23 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-+Enter a request: > > 5778746049677711370 8
+,Enter a request: > > 6198636666387081869 15
 
-(5778746049677711370 is duck, even , sad
-'5778746049677711371 is duck, odd , sad
-*5778746049677711372 is duck, even , happy
-)5778746049677711373 is duck, odd , happy
-*5778746049677711374 is duck, even , happy
-)5778746049677711375 is duck, odd , happy
-65778746049677711376 is buzz, duck, gapful, even , sad
--5778746049677711377 is buzz, duck, odd , sad
+)6198636666387081869 is duck, odd , happy
+*6198636666387081870 is duck, even , happy
+'6198636666387081871 is duck, odd , sad
+(6198636666387081872 is duck, even , sad
+)6198636666387081873 is duck, odd , happy
+(6198636666387081874 is duck, even , sad
+-6198636666387081875 is buzz, duck, odd , sad
+(6198636666387081876 is duck, even , sad
+-6198636666387081877 is buzz, duck, odd , sad
+(6198636666387081878 is duck, even , sad
+'6198636666387081879 is duck, odd , sad
+(6198636666387081880 is duck, even , sad
+'6198636666387081881 is duck, odd , sad
+.6198636666387081882 is buzz, duck, even , sad
+'6198636666387081883 is duck, odd , sad
 
 Enter a request: > > 0
 [1;31m
@@ -984,28 +988,17 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-,Enter a request: > > 3072644550384127037 20
++Enter a request: > > 2769625062707811264 9
 
--3072644550384127037 is buzz, duck, odd , sad
-(3072644550384127038 is duck, even , sad
-'3072644550384127039 is duck, odd , sad
-.3072644550384127040 is buzz, duck, even , sad
-'3072644550384127041 is duck, odd , sad
-(3072644550384127042 is duck, even , sad
-'3072644550384127043 is duck, odd , sad
-(3072644550384127044 is duck, even , sad
-'3072644550384127045 is duck, odd , sad
-(3072644550384127046 is duck, even , sad
--3072644550384127047 is buzz, duck, odd , sad
-(3072644550384127048 is duck, even , sad
-'3072644550384127049 is duck, odd , sad
-03072644550384127050 is duck, gapful, even , sad
-'3072644550384127051 is duck, odd , sad
-(3072644550384127052 is duck, even , sad
-'3072644550384127053 is duck, odd , sad
-.3072644550384127054 is buzz, duck, even , sad
-'3072644550384127055 is duck, odd , sad
-03072644550384127056 is duck, gapful, even , sad
+02769625062707811264 is duck, gapful, even , sad
+'2769625062707811265 is duck, odd , sad
+.2769625062707811266 is buzz, duck, even , sad
+-2769625062707811267 is buzz, duck, odd , sad
+(2769625062707811268 is duck, even , sad
+'2769625062707811269 is duck, odd , sad
+(2769625062707811270 is duck, even , sad
+'2769625062707811271 is duck, odd , sad
+*2769625062707811272 is duck, even , happy
 
 Enter a request: > > 0
 [1;31m
@@ -1422,24 +1415,13 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-%Enter a request: > > 32111 16 SQUARE
+!Enter a request: > > 26658 5 ODD
 
-4          32400 is duck, gapful, square, even , sad
-%          32761 is square, odd , sad
-,          33124 is buzz, square, even , sad
-%          33489 is square, odd , sad
-&          33856 is square, even , sad
-%          34225 is square, odd , sad
-0          34596 is gapful, square, even , happy
-%          34969 is square, odd , sad
-&          35344 is square, even , sad
-+          35721 is buzz, square, odd , sad
-,          36100 is duck, square, even , sad
-%          36481 is square, odd , sad
-&          36864 is square, even , sad
-%          37249 is square, odd , sad
-(          37636 is square, even , happy
-+          38025 is duck, square, odd , sad
+          26659 is odd , sad
+          26661 is odd , sad
+#          26663 is buzz, odd , sad
+          26665 is odd , sad
+#          26667 is buzz, odd , sad
 
 Enter a request: > > 0
 [1;31m
@@ -1456,28 +1438,15 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-#Enter a request: > > 16418 20 BUZZ
+#Enter a request: > > 12936 7 HAPPY
 
-$          16422 is buzz, even , sad
-#          16427 is buzz, odd , sad
-#          16429 is buzz, odd , sad
-$          16436 is buzz, even , sad
-#          16437 is buzz, odd , sad
-#          16443 is buzz, odd , sad
-#          16447 is buzz, odd , sad
-2          16450 is buzz, duck, gapful, even , sad
-#          16457 is buzz, odd , sad
-,          16464 is buzz, gapful, even , sad
-#          16467 is buzz, odd , sad
-%          16471 is buzz, odd , happy
-#          16477 is buzz, odd , sad
-$          16478 is buzz, even , sad
-+          16485 is buzz, gapful, odd , sad
-#          16487 is buzz, odd , sad
-$          16492 is buzz, even , sad
-#          16497 is buzz, odd , sad
-#          16499 is buzz, odd , sad
-*          16506 is buzz, duck, even , sad
+'          12939 is gapful, odd , happy
+          12941 is odd , happy
+          12959 is odd , happy
+          12969 is odd , happy
+(          12972 is gapful, even , happy
+.          12990 is duck, gapful, even , happy
+          12993 is odd , happy
 
 Enter a request: > > 0
 [1;31m
@@ -1494,28 +1463,16 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-#Enter a request: > > 8881 20 SUNNY
+$Enter a request: > > 8736 8 JUMPING
 
-3           9024 is duck, gapful, sunny, even , sad
-,           9215 is gapful, sunny, odd , sad
-9           9408 is buzz, duck, gapful, sunny, even , sad
-*           9603 is duck, sunny, odd , sad
-1           9800 is buzz, duck, sunny, even , sad
-9           9999 is palindromic, gapful, sunny, odd , sad
-3          10200 is duck, gapful, sunny, even , sad
-*          10403 is duck, sunny, odd , sad
-+          10608 is duck, sunny, even , sad
-:          10815 is buzz, duck, gapful, sunny, odd , happy
-+          11024 is duck, sunny, even , sad
-2          11235 is buzz, gapful, sunny, odd , sad
--          11448 is gapful, sunny, even , sad
-$          11663 is sunny, odd , sad
-5          11880 is duck, gapful, sunny, even , happy
-,          12099 is duck, sunny, odd , happy
-9          12320 is buzz, duck, gapful, sunny, even , sad
-$          12543 is sunny, odd , sad
-+          12768 is buzz, sunny, even , sad
-&          12995 is sunny, odd , happy
+&           8765 is odd, jumping , sad
+,           8767 is buzz, odd, jumping , sad
+6           8787 is buzz, gapful, odd, jumping , happy
+&           8789 is odd, jumping , sad
+,           8987 is buzz, odd, jumping , sad
+.           8989 is gapful, odd, jumping , sad
+)           9876 is even, jumping , happy
+'           9878 is even, jumping , sad
 
 Enter a request: > > 0
 [1;31m
@@ -1532,13 +1489,10 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-!Enter a request: > > 28176 5 SPY
+$Enter a request: > > 18627 2 GAPFUL
 
-/          31113 is palindromic, spy, odd , sad
-"          31131 is spy, odd , sad
-(          31311 is buzz, spy, odd , sad
-"          33111 is spy, odd , sad
-%          51112 is spy, even , happy
+,          18630 is duck, gapful, even , sad
+,          18634 is buzz, gapful, even , sad
 
 Enter a request: > > 0
 [1;31m
@@ -1555,13 +1509,20 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-!Enter a request: > > 10881 5 SPY
+%Enter a request: > > 15932 12 GAPFUL
 
-$          11125 is spy, odd , happy
-"          11133 is spy, odd , sad
-%          11152 is spy, even , happy
-$          11215 is spy, odd , happy
-#          11222 is spy, even , sad
+&          15936 is gapful, even , sad
+,          15940 is duck, gapful, even , sad
+%          15945 is gapful, odd , sad
+&          15948 is gapful, even , sad
+,          15950 is duck, gapful, even , sad
+2          15960 is buzz, duck, gapful, even , sad
+%          15961 is gapful, odd , sad
+,          15970 is duck, gapful, even , sad
+&          15972 is gapful, even , sad
+,          15974 is buzz, gapful, even , sad
+%          15975 is gapful, odd , sad
+%          15979 is gapful, odd , sad
 
 Enter a request: > > 0
 [1;31m
@@ -1578,15 +1539,13 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-$Enter a request: > > 24537 7 SQUARE
+!Enter a request: > > 20108 5 ODD
 
-%          24649 is square, odd , sad
-&          24964 is square, even , sad
-%          25281 is square, odd , sad
-4          25600 is duck, gapful, square, even , sad
-+          25921 is buzz, square, odd , sad
-&          26244 is square, even , sad
-%          26569 is square, odd , sad
+%          20109 is duck, odd , happy
++          20111 is buzz, duck, odd , happy
+#          20113 is duck, odd , sad
+%          20115 is duck, odd , happy
+)          20117 is buzz, duck, odd , sad
 
 Enter a request: > > 0
 [1;31m
@@ -1603,28 +1562,12 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-%Enter a request: > > 13626 20 GAPFUL
+)Enter a request: > > 26992 4 PALINDROMIC
 
-,          13630 is duck, gapful, even , sad
-&          13632 is gapful, even , sad
-%          13635 is gapful, odd , sad
-,          13640 is duck, gapful, even , sad
-2          13650 is buzz, duck, gapful, even , sad
-%          13651 is gapful, odd , sad
-.          13660 is duck, gapful, even , happy
-'          13663 is gapful, odd , happy
-,          13664 is buzz, gapful, even , sad
-%          13665 is gapful, odd , sad
-,          13670 is duck, gapful, even , sad
-,          13680 is duck, gapful, even , sad
-,          13690 is duck, gapful, even , sad
-,          13692 is buzz, gapful, even , sad
-%          13695 is gapful, odd , sad
-&          13696 is gapful, even , sad
-&          13698 is gapful, even , sad
--          13699 is buzz, gapful, odd , happy
-,          13700 is duck, gapful, even , sad
-,          13710 is duck, gapful, even , sad
+1          27072 is duck, palindromic, even , sad
++          27172 is palindromic, even , sad
+1          27272 is buzz, palindromic, even , sad
++          27372 is palindromic, even , sad
 
 Enter a request: > > 0
 [1;31m
@@ -1641,24 +1584,13 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-%Enter a request: > > 24366 16 GAPFUL
+#Enter a request: > > 13350 5 SUNNY
 
-'          24375 is gapful, odd , happy
-,          24380 is duck, gapful, even , sad
--          24381 is buzz, gapful, odd , happy
-(          24384 is gapful, even , happy
-,          24388 is buzz, gapful, even , sad
-%          24389 is gapful, odd , sad
-,          24400 is duck, gapful, even , sad
-+          24403 is duck, gapful, odd , sad
-,          24420 is duck, gapful, even , sad
-%          24425 is gapful, odd , sad
-,          24440 is duck, gapful, even , sad
-3          24442 is palindromic, gapful, even , sad
-,          24460 is duck, gapful, even , sad
-&          24466 is gapful, even , sad
-%          24475 is gapful, odd , sad
-.          24480 is duck, gapful, even , happy
+,          13455 is gapful, sunny, odd , sad
+%          13688 is sunny, even , sad
+2          13923 is buzz, gapful, sunny, odd , sad
+3          14160 is duck, gapful, sunny, even , sad
+,          14399 is buzz, sunny, odd , happy
 
 Enter a request: > > 0
 [1;31m
@@ -1675,12 +1607,11 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-#Enter a request: > > 11357 4 HAPPY
+#Enter a request: > > 6663 3 GAPFUL
 
-(          11358 is gapful, even , happy
-%          11377 is buzz, odd , happy
-&          11382 is buzz, even , happy
-           11384 is even , happy
+3           6666 is palindromic, gapful, even , sad
+%           6695 is gapful, odd , sad
+2           6720 is buzz, duck, gapful, even , sad
 
 Enter a request: > > 0
 [1;31m
@@ -1697,20 +1628,25 @@
 *- separate the parameters with one space;
 - enter 0 to exit.
 
-!Enter a request: > > 8841 12 ODD
+"Enter a request: > > 23468 17 ODD
 
-#           8841 is buzz, odd , sad
-           8843 is odd , sad
-           8845 is odd , sad
-%           8847 is buzz, odd , happy
-           8849 is odd , sad
-           8851 is odd , sad
-           8853 is odd , sad
-#           8855 is buzz, odd , sad
-#           8857 is buzz, odd , sad
-           8859 is odd , sad
-           8861 is odd , sad
-           8863 is odd , sad
+          23469 is odd , sad
+%          23471 is buzz, odd , happy
+          23473 is odd , sad
+'          23475 is gapful, odd , happy
+#          23477 is buzz, odd , sad
+          23479 is odd , sad
+          23481 is odd , happy
+%          23483 is gapful, odd , sad
+#          23485 is buzz, odd , sad
+#          23487 is buzz, odd , sad
+          23489 is odd , sad
+          23491 is odd , sad
+          23493 is odd , sad
+          23495 is odd , sad
+#          23497 is buzz, odd , sad
+#          23499 is buzz, odd , sad
+#          23501 is duck, odd , sad
 
 Enter a request: > > 0
 [1;31m

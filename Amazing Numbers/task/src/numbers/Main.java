@@ -98,7 +98,12 @@ public class Main {
         System.out.print("Goodbye!");
     }
 
-
+    /**
+     * Checks if the properties are wrong.
+     * @param propertiesToCheck the properties to check
+     * @param exclusionProperties the exclusion properties
+     * @return true if the properties are wrong, false otherwise
+     */
     private static boolean arePropertiesWrong(List<Property> propertiesToCheck, List<Property> exclusionProperties) {
         List<Property> properties = Arrays.asList(Property.values());
 
@@ -145,8 +150,10 @@ public class Main {
         return false;
     }
 
-
-
+    /**
+     * Prints the properties of a number.
+     * @param number the number
+     */
     private static void printList(long number) {
         System.out.println("Properties of " + number);
         System.out.println("        buzz: " + isBuzz(number));
@@ -163,6 +170,13 @@ public class Main {
         System.out.println("         sad: " + isSad(number));
     }
 
+    /**
+     * Prints the properties of a number.
+     * @param number the number
+     * @param propertiesToCheck the properties to check
+     * @param exclusionProperties the exclusion properties
+     * @return 1 if the number meets the properties, 0 otherwise
+     */
     private static int printRow(Long number, List<Property> propertiesToCheck, List<Property> exclusionProperties) {
         String propertiesString = getPropertiesString(number).toLowerCase();
 
@@ -179,16 +193,29 @@ public class Main {
         return 0;
     }
 
-
-
+    /**
+     * Returns true if the number is a Buzz number.
+     * @param number the number
+     * @return true if the number is a Buzz number, false otherwise
+     */
     private static boolean isBuzz(long number) {
         return number % 7 == 0 || Long.toString(number).endsWith("7");
     }
 
+    /**
+     * Returns true if the number is a Duck number.
+     * @param number the number
+     * @return true if the number is a Duck number, false otherwise
+     */
     private static boolean isDuck(long number) {
         return Long.toString(number).substring(1).contains("0");
     }
 
+    /**
+     * Returns true if the number is a Palindromic number.
+     * @param number the number
+     * @return true if the number is a Palindromic number, false otherwise
+     */
     private static boolean isPalindromic(long number) {
         String strNumber = Long.toString(number);
         boolean isPalindromic = true;
@@ -199,6 +226,11 @@ public class Main {
         return isPalindromic;
     }
 
+    /**
+     * Returns true if the number is a Gapful number.
+     * @param number the number
+     * @return true if the number is a Gapful number, false otherwise
+     */
     private static boolean isGapful(long number) {
         String strNumber = Long.toString(number);
 
@@ -208,6 +240,11 @@ public class Main {
         return false;
     }
 
+    /**
+     * Returns true if the number is a Spy number.
+     * @param number the number
+     * @return true if the number is a Spy number, false otherwise
+     */
     private static boolean isSpy(long number) {
         long sum = 0, product = 1;
 
@@ -218,24 +255,49 @@ public class Main {
         return sum == product;
     }
 
+    /**
+     * Returns true if the number is a Square number.
+     * @param number the number
+     * @return true if the number is a Square number, false otherwise
+     */
     private static boolean isSquare(long number) {
         long rootNumber = (long) Math.sqrt(number);
         return number == Math.pow(rootNumber, 2);
     }
 
+    /**
+     * Returns true if the number is a Sunny number.
+     * @param number the number
+     * @return true if the number is a Sunny number, false otherwise
+     */
     private static boolean isSunny(long number) {
         long sunnyRoot = (long) Math.sqrt(++number);
         return number == Math.pow(sunnyRoot, 2);
     }
 
+    /**
+     * Returns true if the number is an Even number.
+     * @param number the number
+     * @return true if the number is an Even number, false otherwise
+     */
     private static boolean isEven(long number) {
         return number % 2 == 0;
     }
 
+    /**
+     * Returns true if the number is an Odd number.
+     * @param number the number
+     * @return true if the number is an Odd number, false otherwise
+     */
     private static boolean isOdd(long number) {
         return number % 2 == 1;
     }
 
+    /**
+     * Returns true if the number is a Jumping number.
+     * @param number the number
+     * @return true if the number is a Jumping number, false otherwise
+     */
     private static boolean isJumping(long number) {
         String strNumber = Long.toString(number);
         int length = strNumber.length();
@@ -258,6 +320,11 @@ public class Main {
         return true; // It's a Jumping number
     }
 
+    /**
+     * Returns true if the number is a Happy number.
+     * @param number the number
+     * @return true if the number is a Happy number, false otherwise
+     */
     private static boolean isNumber(long number, int target) {
         int count = 0;
         while (number != target && count < 20) {
@@ -273,13 +340,31 @@ public class Main {
         return number == target;
     }
 
+    /**
+     * Returns true if the number is a Happy number.
+     * @param number the number
+     * @return true if the number is a Happy number, false otherwise
+     */
     private static boolean isHappy(long number) {
         return isNumber(number, 1);
     }
 
+    /**
+     * Returns true if the number is a Sad number.
+     * @param number the number
+     * @return true if the number is a Sad number, false otherwise
+     */
     private static boolean isSad(long number) {
         return isNumber(number, 4);
     }
+
+    /**
+     * Returns true if the number meets the properties.
+     * @param number the number
+     * @param propertiesToCheck the properties to check
+     * @param exclusionProperties the exclusion properties
+     * @return true if the number meets the properties, false otherwise
+     */
     private static boolean meetsProperties(long number, List<Property> propertiesToCheck, List<Property> exclusionProperties) {
         String strOutput = getPropertiesString(number).toLowerCase();
 
@@ -294,7 +379,9 @@ public class Main {
 
 
     /**
-     * Returns a string containing the properties of a number.
+     * Returns the properties of a number as a string.
+     * @param number the number
+     * @return the properties of a number as a string
      */
     private static String getPropertiesString(long number) {
         StringBuilder output = new StringBuilder();
